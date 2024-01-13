@@ -1,5 +1,7 @@
 <div class="container">
-  <span class="title">LOGOWANIE</span>
+  <div class="header">
+    <div class="headertext title">LOGOWANIE</div>
+  </div>
 
   <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
     <label for="username">login: </label>
@@ -27,5 +29,10 @@
     <button type="submit" [disabled]="!loginForm.valid">
       zaloguj się
     </button>
+
+    <div class="header">
+      <div class="text">nie masz jeszcze konta? </div>
+      <div class="textbold accent"> zarejestruj się</div>
+  </div>
   </form>
 </div>
