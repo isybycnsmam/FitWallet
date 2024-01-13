@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { HowToPageComponent } from './pages/how-to/how-to-page.component';
-import { LoginPageComponent } from './pages/login/login-page.component';
+import { HowToComponent } from './pages/how-to/how-to.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'how-to', pathMatch: 'full' },
-  { path: 'how-to', component: HowToPageComponent},
-  { path: 'login', component: LoginPageComponent},
+  { path: 'how-to', component: HowToComponent},
+  { path: 'login', component: LoginComponent},
 ];

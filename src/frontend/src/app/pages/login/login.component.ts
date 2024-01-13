@@ -7,18 +7,18 @@ import {
   FormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login-page',
+  selector: 'app-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
-  templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.scss',
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
 })
-export class LoginPageComponent {
+export class LoginComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   loginFailed = false;
