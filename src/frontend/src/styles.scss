@@ -10,6 +10,7 @@ body {
   flex-direction: column;
   color: #fdf0e2;
   overflow-x: hidden;
+  min-width: 1200px;
 }
 
 a:visited {
@@ -30,13 +31,13 @@ a:hover {
 .text {
   font-family: Poppins;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .textbold {
   font-family: Poppins;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .headertext {
@@ -48,19 +49,19 @@ a:hover {
 .placeholdertext {
   font-family: Poppins;
   font-weight: 200;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .navibartextsmaller {
   font-family: Poppins;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .navibartext {
   font-family: Poppins;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .navibartext,
@@ -70,6 +71,6 @@ a:hover {
 .text,
 .textbold {
   line-height: 28px; /* 155.556% */
-  letter-spacing: 0.2px;
+  letter-spacing: 0.3px;
   word-wrap: break-word;
 }
