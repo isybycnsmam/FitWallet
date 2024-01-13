@@ -1,52 +1,39 @@
-.content {
-  padding-top: 25px;
+.footer{
+width: 90%; 
+height: 140px; 
+padding-left: 45px; 
+padding-right: 45px; 
+padding-top: 5px; 
+padding-bottom: 5px; 
+justify-content: space-between; 
+align-items: center; 
+display: inline-flex;
 }
 
-.title {
-  color: #ed9842;
-  padding: 50px;
-  text-align: center;
-
-  font-family: Poppins;
-  font-size: 35px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 28px; /* 80% */
-  letter-spacing: 0.2px;
+.leftdiv{
+  justify-content: flex-start; 
 }
 
-.circles-container {
-  justify-content: center;
-  align-items: center;
+.rightdiv{
+  justify-content: flex-end; 
+}
+
+.rightdiv, .leftdiv{
+  align-items: center; 
+  gap: 50px; 
+  display: flex
+}
+
+.info{
+  padding-left: 30px; 
+  padding-right: 30px; 
+  justify-content: center; 
+  align-items: center; 
   display: flex;
+  text-align: center; 
+}
 
-  .circle {
-    display: flex;
-    width: 37.5rem;
-    height: 37.5rem;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0.625rem;
-    border-radius: 18.75rem;
-
-    span {
-      text-align: center;
-      /* text */
-      font-family: Poppins;
-      font-size: 1.125rem;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 1.75rem; /* 155.556% */
-      letter-spacing: 0.0125rem;
-    }
-  }
-
-  .left-circle {
-    background: #724b3ccc;
-  }
-
-  .right-circle {
-    background: #c5946c;
-  }
+img{
+  width: 45px;
+  height: 45px;
 }
