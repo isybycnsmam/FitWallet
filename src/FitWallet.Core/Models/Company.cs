@@ -13,6 +13,6 @@ public sealed class Company : ModelBase
 
     public string Address { get; set; }
 
-    public int ParentId { get; set; }
+    public string ParentId { get; set; }
     public Company Parent { get; set; }
 }

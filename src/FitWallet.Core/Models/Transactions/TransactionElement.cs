@@ -11,10 +11,10 @@ public sealed class TransactionElement : ModelBase
     public string Description { get; set; }
 
     [Required]
-    public int TransactionId { get; set; }
+    public string TransactionId { get; set; }
     public Transaction Transaction { get; set; }
 
     [Required]
-    public int CategoryId { get; set; }
+    public string CategoryId { get; set; }
     public Category Category { get; set; }
 }

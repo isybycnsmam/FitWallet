@@ -28,10 +28,10 @@ public sealed class Transaction : ModelBase
     /// </summary>
     public List<TransactionElement> Elements { get; set; }
 
-    public int CompanyId { get; set; }
+    public string CompanyId { get; set; }
     public Company Company { get; set; }
 
     [Required]
-    public int WalletId { get; set; }
+    public string WalletId { get; set; }
     public Wallet Wallet { get; set; }
 }

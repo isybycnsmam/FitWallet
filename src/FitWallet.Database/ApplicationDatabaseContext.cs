@@ -1,14 +1,14 @@
 ﻿using FitWallet.Core.Models;
 using FitWallet.Core.Models.Transactions;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitWallet.Database;
 
-public class ApplicationDatabaseContext : DbContext
+public class ApplicationDatabaseContext : IdentityDbContext<User>
 {
     public ApplicationDatabaseContext(DbContextOptions options) : base(options) { }
 
-    public DbSet<User> Users { get; set; }
     public DbSet<Wallet> Wallets { get; set; }
     public DbSet<Company> Companies { get; set; }
     public DbSet<Category> Categories { get; set; }
@@ -17,7 +17,7 @@ public class ApplicationDatabaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        ConfigureUserEntity(modelBuilder);
+        base.OnModelCreating(modelBuilder);
 
         ConfigureWalletEntity(modelBuilder);
 
@@ -42,26 +42,13 @@ public class ApplicationDatabaseContext : DbContext
             .IsRequired(false);
     }
 
-    private static void ConfigureUserEntity(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<User>()
-            .HasMany(u => u.Wallets)
-            .WithOne(w => w.User)
-            .HasForeignKey(w => w.UserId)
-            .IsRequired();
-
-        modelBuilder.Entity<User>()
-            .HasIndex(p => p.Username)
-            .IsUnique();
-
-        // TODO: Is this really unique? To be discussed 
-        modelBuilder.Entity<User>()
-            .HasIndex(p => new { p.FirstName, p.LastName })
-            .IsUnique();
-    }
-
     private static void ConfigureWalletEntity(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Wallet>()
+            .HasOne(w => w.User)
+            .WithMany(u => u.Wallets)
+            .HasForeignKey(w => w.UserId);
+
         modelBuilder.Entity<Wallet>()
             .HasMany(w => w.Transactions)
             .WithOne(t => t.Wallet)

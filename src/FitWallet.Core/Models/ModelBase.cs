@@ -7,7 +7,7 @@ public class ModelBase
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public string Id { get; set; } = Guid.NewGuid().ToString();
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public DateTime CreationDate { get; set; } = DateTime.UtcNow;

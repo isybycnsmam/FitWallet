@@ -10,20 +10,18 @@ namespace FitWallet.Core.Models;
 public sealed class Wallet : ModelBase
 {
     [Required]
-    [StringLength(20, MinimumLength = 3)]
+    [StringLength(DtoValidationConsts.WalletNameMaxLength)]
     public string Name { get; set; }
-
+    
+    [StringLength(DtoValidationConsts.WalletDescriptionMaxLength)]
     public string Description { get; set; }
 
-    ///// <summary>
-    ///// Current balance, updated
-    ///// </summary>
-    //public double Balance { get; set; }// TODO: Implement that
+    // TODO: Implement balance
 
     public bool Disabled { get; set; }
 
     [Required]
-    public int UserId { get; set; }
+    public string UserId { get; set; }
     public User User { get; set; }
 
     public List<Transaction> Transactions { get; set; }
