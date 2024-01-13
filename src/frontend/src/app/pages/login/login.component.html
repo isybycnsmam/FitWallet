@@ -4,22 +4,16 @@
   </div>
 
   <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
-    <label for="username">login: </label>
-    <input
-      id="username"
-      type="text"
+    <app-input
+      [formControll]="loginForm.controls.username"
+      label="login"
       placeholder="lubiepieski"
-      formControlName="username"
-      [ngClass]="{'input-error': loginFailed}"
     />
 
-    <label for="password">hasło: </label>
-    <input
-      id="password"
+    <app-input
+      [formControll]="loginForm.controls.password"
+      label="hasło"
       placeholder="12345678"
-      type="password"
-      formControlName="password"
-      [ngClass]="{'input-error': loginFailed}"
     />
 
     <div class="error-message" *ngIf="loginFailed">

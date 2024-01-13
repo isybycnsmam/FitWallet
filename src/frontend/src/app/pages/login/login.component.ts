@@ -10,13 +10,14 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
+import { InputComponent } from "../../shared/input/input.component";
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+    selector: 'app-login',
+    standalone: true,
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss',
+    imports: [CommonModule, ReactiveFormsModule, FormsModule, InputComponent]
 })
 export class LoginComponent {
   constructor(private http: HttpClient, private router: Router) {}
