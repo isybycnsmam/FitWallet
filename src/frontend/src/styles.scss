@@ -6,63 +6,70 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
-  color: #FDF0E2;
+  display: flex;
+  flex-direction: column;
+  color: #fdf0e2;
   overflow-x: hidden;
 }
 
-a:visited{
+a:visited {
   text-decoration: none;
-  color: #FDF0E2;
+  color: #fdf0e2;
 }
 
-a:link{
+a:link {
   text-decoration: none;
-  color: #FDF0E2;
+  color: #fdf0e2;
 }
 
-a:hover{
+a:hover {
   color: #ed9842;
   transition: 0.2s ease-in-out;
 }
 
-.text{
+.text {
   font-family: Poppins;
   font-weight: 400;
   font-size: 18px;
 }
 
-.textbold{
+.textbold {
   font-family: Poppins;
   font-weight: 700;
   font-size: 18px;
 }
 
-.headertext{
+.headertext {
   font-family: Poppins;
   font-weight: 700;
   font-size: 35px;
 }
 
-.placeholdertext{
+.placeholdertext {
   font-family: Poppins;
   font-weight: 200;
   font-size: 18px;
 }
 
-.navibartextsmaller{
+.navibartextsmaller {
   font-family: Poppins;
   font-weight: 700;
   font-size: 16px;
 }
 
-.navibartext{
+.navibartext {
   font-family: Poppins;
   font-weight: 700;
   font-size: 18px;
 }
 
-.navibartext, .navibartextsmaller, .placeholdertext, .headertext, .text, .textbold{
-line-height: 28px; /* 155.556% */
-letter-spacing: 0.2px;
-word-wrap: break-word;
+.navibartext,
+.navibartextsmaller,
+.placeholdertext,
+.headertext,
+.text,
+.textbold {
+  line-height: 28px; /* 155.556% */
+  letter-spacing: 0.2px;
+  word-wrap: break-word;
 }
