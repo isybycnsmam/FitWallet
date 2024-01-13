@@ -58,6 +58,7 @@
     button:hover {
       color: #FDF0E2;
       transition: ease-in-out 0.2s;
+      cursor: pointer;
     }
 
     button:active {
@@ -66,6 +67,7 @@
       -webkit-box-shadow:inset 0px 0px 0px 2px #ed9842;
       -moz-box-shadow:inset 0px 0px 0px 2px #ed9842;
       box-shadow:inset 0px 0px 0px 2px #ed9842;
+      cursor: pointer;
     }
   }
 }
