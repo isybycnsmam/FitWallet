@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { InputComponent } from "../../shared/input/input.component";
 
 @Component({
@@ -17,7 +17,7 @@ import { InputComponent } from "../../shared/input/input.component";
     standalone: true,
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',
-    imports: [CommonModule, ReactiveFormsModule, FormsModule, InputComponent]
+    imports: [CommonModule, ReactiveFormsModule, FormsModule, InputComponent, RouterModule]
 })
 export class LoginComponent {
   constructor(private http: HttpClient, private router: Router) {}
