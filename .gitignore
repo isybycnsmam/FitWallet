@@ -437,7 +437,7 @@ yarn-error.log
 .history/*
 
 # Miscellaneous
-/.angular/cache
+src/frontend/.angular
 .sass-cache/
 /connect.lock
 /coverage

@@ -1,0 +1,31 @@
+<div class="container">
+  <span class="title">LOGOWANIE</span>
+
+  <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+    <label for="username">login: </label>
+    <input
+      id="username"
+      type="text"
+      placeholder="lubiepieski"
+      formControlName="username"
+      [ngClass]="{'input-error': loginFailed}"
+    />
+
+    <label for="password">hasło: </label>
+    <input
+      id="password"
+      placeholder="12345678"
+      type="password"
+      formControlName="password"
+      [ngClass]="{'input-error': loginFailed}"
+    />
+
+    <div class="error-message" *ngIf="loginFailed">
+      Nieprawidłowy login lub hasło
+    </div>
+
+    <button type="submit" [disabled]="!loginForm.valid">
+      zaloguj się
+    </button>
+  </form>
+</div>
