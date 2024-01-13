@@ -1,0 +1,58 @@
+:host {
+  margin-bottom: 3%;
+  width: 40%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+label {
+  color: white;
+  margin-bottom: 10px;
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid #ed9842;
+  background-color: transparent;
+  color: white;
+  outline: none; // Remove highlighting when clicked
+  text-align: center;
+  width: 100%;
+
+  &.input-error {
+    border-bottom: 1px solid red;
+  }
+}
+
+.tooltip {
+  position: absolute;
+  right: 5px;
+  bottom: 0px;
+  vertical-align: bottom;
+
+  .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+  }
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

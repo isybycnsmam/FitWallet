@@ -5,7 +5,7 @@ namespace FitWallet.Core.Dtos.Users;
 public class RegisterRequestDto
 {
     [Required(ErrorMessage = "User Name is required")]
-    [StringLength(DtoValidationConsts.UserNameMinLength, MinimumLength = DtoValidationConsts.UserNameMinLength)]
+    [StringLength(DtoValidationConsts.UserNameMaxLength, MinimumLength = DtoValidationConsts.UserNameMinLength)]
     public string UserName { get; set; }
 
     [Required(ErrorMessage = "First Name is required")]

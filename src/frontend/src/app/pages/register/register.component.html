@@ -1,1 +1,38 @@
-<p>register-page works!</p>
+<div class="container">
+  <span class="title">REJESTRACJA</span>
+
+  <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
+    <app-input
+      [formControll]="registerForm.controls.firstname"
+      label="imię"
+      placeholder="Nastka"
+    ></app-input>
+
+    <app-input
+      [formControll]="registerForm.controls.username"
+      label="login"
+      placeholder="huh"
+    ></app-input>
+
+    <app-input
+      [formControll]="registerForm.controls.password"
+      label="hasło"
+      placeholder="12345678"
+    ></app-input>
+
+    <app-input
+      [formControll]="registerForm.controls.email"
+      label="e-mail"
+      placeholder="mrtnastka@ph.com"
+    ></app-input>
+
+    <button class="textbold" type="submit" [disabled]="!registerForm.valid">
+      zarejestruj się
+    </button>
+  </form>
+
+  <div class="login-instead">
+    <span class="text">masz już konto?</span>
+    <a class="textbold" [routerLink]="['/login']">zaloguj się</a>
+  </div>
+</div>

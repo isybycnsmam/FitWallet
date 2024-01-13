@@ -1,0 +1,44 @@
+<div class="wrapper">
+  <label class="textbold" for="username">{{ label }}: </label>
+  <input
+    [formControl]="formControll"
+    type="text"
+    class="text"
+    placeholder="{{ placeholder }}"
+    [ngClass]="{
+      'input-error': formControll.touched && formControll.invalid
+    }"
+  />
+  <div class="tooltip">
+    <ng-template
+      [ngIf]="formControll.touched && formControll.invalid"
+      [ngIfElse]="info"
+    >
+      <img src="assets/infoerror.png" alt="error" />
+
+      <span class="tooltiptext">
+        <ng-container *ngIf="formControll.errors?.['required']">
+          pole wymagane
+        </ng-container>
+
+        <!-- <ng-container *ngIf="formControll.errors?.['required']">
+          pole wymagane
+        </ng-container>
+
+        <ng-container *ngIf="formControll.errors?.['required']">
+          pole wymagane
+        </ng-container>
+
+        <ng-container *ngIf="formControll.errors?.['required']">
+          pole wymagane
+        </ng-container> -->
+      </span>
+    </ng-template>
+
+    <ng-template #info>
+      <img #info src="assets/info.png" alt="info"/>
+      <span class="tooltiptext">{{ tooltiptext }}</span>
+    </ng-template>
+
+  </div>
+</div>
