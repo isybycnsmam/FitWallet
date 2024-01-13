@@ -43,3 +43,9 @@ body {
   font-weight: bold;
   font-size: 18px;
 }
+
+.navibartext, .navibartextsmaller, .placeholdertext, .headertext, .text, .textbold{
+line-height: 28px; /* 155.556% */
+letter-spacing: 0.2px;
+word-wrap: break-word;
+}
