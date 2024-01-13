@@ -13,15 +13,13 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace FitWallet.Api.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
-public class IdentityControllerBase : ApplicationControllerBase
+public class IdentityController : ApplicationControllerBase
 {
     private readonly JwtSettings _jwtSettings;
     private readonly UserManager<User> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
 
-    public IdentityControllerBase(
+    public IdentityController(
         //ILogger logger,
         IMapper mapper,
         JwtSettings jwtSettings, 

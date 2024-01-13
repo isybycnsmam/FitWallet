@@ -10,11 +10,11 @@ using AutoMapper;
 namespace FitWallet.Api.Controllers;
 
 [Authorize]
-public class WalletsControllerBase : ApplicationControllerBase
+public class WalletsController : ApplicationControllerBase
 {
     private readonly ApplicationDatabaseContext _context;
 
-    public WalletsControllerBase(
+    public WalletsController(
         ILogger logger,
         IMapper mapper,
         ApplicationDatabaseContext context) : base(logger, mapper)
