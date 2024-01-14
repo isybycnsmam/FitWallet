@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'crudpage',
+  selector: 'adminpage',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './adminpage.component.html',
