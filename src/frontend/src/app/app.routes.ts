@@ -6,14 +6,14 @@ import { RegisterComponent } from './pages/register/register.component';
 import { onlyLoggedUsersGuard, onlyNotLoggedUsersGuard } from './guards/auth.guard';
 import { WalletsComponent } from './pages/wallets/wallets.component';
 import { ErrorPageComponent } from './pages/errorpage/errorpage.component';
-import { CrudPageComponent } from './pages/crudpage/crudpage.component';
+import { AdminPageComponent } from './pages/adminpage/adminpage.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'how-to', pathMatch: 'full' },
   { path: 'how-to', component: HowToComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'errorpage', component: ErrorPageComponent },
-  { path: 'crudpage', component: CrudPageComponent }, //dodaj tutaj uprawnienia dla admina
+  { path: 'adminpage', component: AdminPageComponent }, //dodaj tutaj uprawnienia dla admina
   { path: 'register', component: RegisterComponent, canActivate: [onlyNotLoggedUsersGuard] },
   { path: 'login', component: LoginComponent, canActivate: [onlyNotLoggedUsersGuard] },
   { path: 'wallets', component: WalletsComponent, canActivate: [onlyLoggedUsersGuard]},
