@@ -7,26 +7,26 @@
     <app-input
       [formControll]="registerForm.controls.firstname"
       label="imię"
-      placeholder="Nastka"
+      placeholder="twoje imię"
     ></app-input>
 
     <app-input
       [formControll]="registerForm.controls.username"
       label="login"
-      placeholder="huh"
+      placeholder="twój login"
     ></app-input>
 
     <app-input
       [formControll]="registerForm.controls.password"
       label="hasło"
       type="password"
-      placeholder="12345678"
+      placeholder="twoje hasło"
     ></app-input>
 
     <app-input
       [formControll]="registerForm.controls.email"
       label="e-mail"
-      placeholder="mrtnastka@ph.com"
+      placeholder="twój e-mail"
     ></app-input>
 
     <button class="textbold" type="submit" [disabled]="!registerForm.valid">
