@@ -23,6 +23,16 @@
       margin: 0 10px;
       text-decoration: none;
       color: #fdf0e2;
+      background-color: black;
+
+      img {
+        height: 45px;
+        width: 45px;
+      }
+
+      img:hover {
+        filter: brightness(0) saturate(100%) invert(70%) sepia(56%) saturate(838%) hue-rotate(330deg) brightness(99%) contrast(88%);
+      }
 
       &:hover {
         color: #ed9842;

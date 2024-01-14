@@ -15,7 +15,7 @@ export const onlyNotLoggedUsersGuard: CanActivateFn = (
     return true;
   }
 
-  inject(Router).navigate(['/how-to']);
+  inject(Router).navigate(['/login']);
   return false;
 };
 
@@ -23,5 +23,10 @@ export const onlyLoggedUsersGuard: CanActivateFn = (
   next: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  return inject(AuthorizationService).isLoggedIn() === true;
+  if (inject(AuthorizationService).isLoggedIn() === true) {
+    return true;
+  }
+
+  inject(Router).navigate(['/how-to']);
+  return false;
 };

@@ -14,4 +14,5 @@ export class InputComponent {
   @Input() placeholder: string = '';
   @Input() tooltiptext: string = '';
   @Input() label: string = '';
+  @Input() type: string = 'text';
 }

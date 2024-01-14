@@ -1,13 +1,22 @@
 <nav class="navbar">
   <img src="assets/logo.svg" alt="logo" class="logo" />
 
-  <div class="navbar-links">
-    <a class="text" [routerLink]="['/how-to']">how-to</a>
-    <a class="text" routerLink="/aplikacja">aplikacja</a>
-    <a class="text" [routerLink]="['/contact']">kontakt</a>
-  </div>
-
   <ng-template [ngIf]="isUserLoggedIn" [ngIfElse]="notlogged">
+    <div class="navbar-links">
+      <a class="text" [routerLink]="['/wallets']"
+        ><img src="../../assets/wallet.png"
+      /></a>
+      <a class="text" routerLink="/aplikacja"
+        ><img src="../../assets/transaction.png"
+      /></a>
+      <a class="text" [routerLink]="['/contact']"
+        ><img src="../../assets/category.png"
+      /></a>
+      <a class="text" [routerLink]="['/contact']"
+        ><img src="../../assets/stats.png"
+      /></a>
+    </div>
+
     <div class="user-actions">
       <span class="textbold"
         >hello, <a class="accent"> {{ username }}</a></span
@@ -15,7 +24,14 @@
       <a class="logout textbold" (click)="logout()">wyloguj się</a>
     </div>
   </ng-template>
+
   <ng-template #notlogged>
+    <div class="navbar-links">
+      <a class="text" [routerLink]="['/how-to']">how-to</a>
+      <a class="text" routerLink="/aplikacja">aplikacja</a>
+      <a class="text" [routerLink]="['/contact']">kontakt</a>
+    </div>
+
     <div class="user-actions">
       <button class="navibartext" [routerLink]="['/register']">
         zarejestruj się

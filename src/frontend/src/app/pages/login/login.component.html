@@ -6,7 +6,7 @@
   <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
     <app-input [formControll]="loginForm.controls.username" label="login" placeholder="lubiepieski" />
 
-    <app-input [formControll]="loginForm.controls.password" label="hasło" placeholder="12345678" />
+    <app-input [formControll]="loginForm.controls.password" label="hasło" type="password" placeholder="12345678" />
 
     <div class="error-message" *ngIf="loginFailed">
       Nieprawidłowy login lub hasło
