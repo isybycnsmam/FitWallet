@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthorizationService } from '../services/authorization.service';
 
 @Component({
@@ -10,15 +10,23 @@ import { AuthorizationService } from '../services/authorization.service';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',
 })
-export class NavBarComponent {
-  constructor(private authService: AuthorizationService) {}
+export class NavBarComponent implements OnInit {
+  constructor(
+    private authService: AuthorizationService,
+    private router: Router
+  ) {}
 
+  isUserLoggedIn: boolean = this.authService.isLoggedIn();
   username: string = 'great emperor';
 
-  isUserLoggedIn = this.authService.isLoggedIn();
+  ngOnInit(): void {
+    this.authService.tokenModifiedSubject.subscribe(() => {
+      this.isUserLoggedIn = this.authService.isLoggedIn();
+    });
+  }
 
   logout() {
     this.authService.removeToken();
-    window.location.reload();
+    this.router.navigate(['/login']);
   }
 }

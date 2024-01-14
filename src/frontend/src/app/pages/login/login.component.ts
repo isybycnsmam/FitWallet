@@ -55,6 +55,6 @@ export class LoginComponent {
   loginSuccessfull(response: any) {
     this.loginFailed = false;
     this.authService.saveToken({ accessToken: response.accessToken });
-    this.router.navigate(['/how-to']);
+    this.router.navigate(['/wallets']);
   }
 }
