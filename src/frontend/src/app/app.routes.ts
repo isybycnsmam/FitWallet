@@ -11,6 +11,7 @@ import { WalletsComponent } from './pages/wallets/wallets.component';
 import { ErrorPageComponent } from './pages/errorpage/errorpage.component';
 import { StatsComponent } from './pages/stats/stats.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { CategoriesComponent } from './pages/categories/categories.component';
 import { AdminPageComponent } from './pages/adminpage/adminpage.component';
 import { AddWalletComponent } from './pages/wallets/add-wallet/add-wallet.component';
 
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'errorpage', component: ErrorPageComponent },
   { path: 'stats', component: StatsComponent },
   { path: 'transactions', component: TransactionsComponent },
+  { path: 'categories', component: CategoriesComponent },
   { path: 'adminpage', component: AdminPageComponent }, //dodaj tutaj uprawnienia dla admina
   {
     path: 'register',

@@ -1,15 +1,25 @@
-Pelny plik dokumentacji jest dostępny w fitwallet\doc.
-
-Link do projektu w Figmie:
-https://www.figma.com/file/5joPPq5aS1SpgkHBdT1U4O/FitWallet?type=design&node-id=0%3A1&mode=design&t=22rFORFBOSesHvKO-1
+Pelny plik dokumentacji jest dostępny w fitwallet\doc. Jego treść jest przeklejona też tutaj, ale nie radzimy spojrzeć w powyższą ścieżkę. 
 
 Instrukcja uruchomienia aplikacji:
 
 
 
-Dokumentacja:
-FITWALLET
+Dane logowania, na których pracowaliśmy:
+login
+isybycnsmam
+hasło
+zaq1@WSX
+Polecamy korzystać z tego użytkownika, tam jest dodane dużo danych i można dobrze sprawdzić działanie aplikacji.
 
+
+Link do projektu w Figmie:
+https://www.figma.com/file/5joPPq5aS1SpgkHBdT1U4O/FitWallet?type=design&node-id=0%3A1&mode=design&t=22rFORFBOSesHvKO-1
+
+
+
+Dokumentacja:
+
+FITWALLET
 
 CEL
 Główną funkcją FitWallet będzie umożliwienie użytkownikowi kontrolowania swoich finansów za pomocą bieżącego notowania wpływów oraz wydatków poprzez zapisywanie ich, z możliwością dodawania komentarzy, filtrowania pozycji. Wydatki będą podzielone na kategorie oraz do wszelkich aktywności finansowych dopisywane będą firmy lub osoby, które są z nimi powiązane. Oprócz tego, użytkownik będzie mógł zobaczyć wykresy sporządzone na podstawie jego ruchów na koncie (np. jaki procent stanowią wydatki w poszczególnych sklepach lub na poszczególne kategorie). Dodatkowo, system będzie wspierał tagi przypisane do transakcji, które użytkownik dowolnie będzie mógł modyfikować, a dzięki nim będzie mu łatwiej je analizować.
