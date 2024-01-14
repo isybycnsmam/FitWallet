@@ -139,8 +139,8 @@ a {
   }
 
   img:hover {
-    filter: brightness(0) saturate(100%) invert(70%) sepia(56%)
-      saturate(838%) hue-rotate(330deg) brightness(99%) contrast(88%);
+    filter: brightness(0) saturate(100%) invert(70%) sepia(56%) saturate(838%) hue-rotate(330deg) brightness(99%)
+      contrast(88%);
   }
 
   &:hover {
@@ -152,6 +152,25 @@ a {
     color: #fdf0e2;
     transition: ease-in-out 0.2s;
   }
+}
+
+.elements {
+  width: 1340px;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  display: inline-flex;
+  border: 1px solid #ed9842;
+}
+
+.elementsheadrow {
+  align-self: stretch;
+  height: 50px;
+  border-bottom: 1px #ed9842 solid;
+  justify-content: space-between;
+  align-items: center;
+  display: inline-flex;
 }
 
 .w250 {
