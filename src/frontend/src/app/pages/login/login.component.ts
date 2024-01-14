@@ -10,17 +10,28 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Router, RouterModule } from '@angular/router';
-import { InputComponent } from "../../shared/input/input.component";
+import { InputComponent } from '../../shared/input/input.component';
+import { AuthorizationService } from '../../services/authorization.service';
 
 @Component({
-    selector: 'app-login',
-    standalone: true,
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.scss',
-    imports: [CommonModule, ReactiveFormsModule, FormsModule, InputComponent, RouterModule]
+  selector: 'app-login',
+  standalone: true,
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    InputComponent,
+    RouterModule,
+  ],
 })
 export class LoginComponent {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private authService: AuthorizationService
+  ) {}
 
   loginFailed = false;
   loginForm = new FormGroup({
@@ -37,13 +48,13 @@ export class LoginComponent {
       })
       .subscribe({
         next: (response) => this.loginSuccessfull(response),
-        error: () => this.loginFailed = true
+        error: () => (this.loginFailed = true),
       });
   }
 
   loginSuccessfull(response: any) {
     this.loginFailed = false;
-    localStorage.setItem('jwt_token', response.accessToken);
+    this.authService.saveToken({ accessToken: response.accessToken });
     this.router.navigate(['/how-to']);
   }
 }
