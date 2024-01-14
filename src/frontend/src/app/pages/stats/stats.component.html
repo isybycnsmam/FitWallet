@@ -1,0 +1,30 @@
+<div class="content">
+  <div class="header">
+    <div class="headertext title">twoje statystyki</div>
+  </div>
+</div>
+  <div *ngFor="let statistic of statisticsModels" class="charts">
+    <div class="statistic-summary">
+      <div class="walletname">
+        <button class="textbold" *ngIf="statistic.id !== 'summary'; else summary">
+          {{ statistic.name }}
+        </button>
+      </div>
+
+      <ng-template #summary>
+        <div class="content">
+          <div class="header">
+            <div class="textbold accent margintop">podsumowanie twoich kont</div>
+          </div>
+        </div>
+      </ng-template>
+
+      <div class="content">
+        <div class="header">
+          <div class="textbold marginbottom">łączne wydatki: {{ statistic.totalSpendings }} zł </div>
+        </div>
+      </div>
+    </div>
+
+    <app-statistics-pie-chart [model]="statistic"></app-statistics-pie-chart>
+  </div>
