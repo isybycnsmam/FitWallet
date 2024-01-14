@@ -15,7 +15,7 @@ export const onlyNotLoggedUsersGuard: CanActivateFn = (
     return true;
   }
 
-  inject(Router).navigate(['/login']);
+  inject(Router).navigate(['/errorpage']);
   return false;
 };
 
@@ -27,6 +27,6 @@ export const onlyLoggedUsersGuard: CanActivateFn = (
     return true;
   }
 
-  inject(Router).navigate(['/how-to']);
+  inject(Router).navigate(['/login']);
   return false;
 };

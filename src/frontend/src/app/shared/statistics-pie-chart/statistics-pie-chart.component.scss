@@ -1,0 +1,34 @@
+.chart {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.right-panel,
+.left-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+button {
+  padding: 20px;
+  border-radius: 25px;
+  background-color: #ed9842;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+  display: flex;
+  border: none;
+  margin: 0 10px;
+  text-decoration: none;
+}
