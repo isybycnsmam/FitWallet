@@ -7,8 +7,20 @@
     <a class="text" [routerLink]="['/contact']">kontakt</a>
   </div>
 
-  <div class="user-actions">
-    <button class="navibartext" [routerLink]="['/register']">zarejestruj się</button>
-    <button class="navibartext" [routerLink]="['/login']">zaloguj się</button>
-  </div>
+  <ng-template [ngIf]="isUserLoggedIn" [ngIfElse]="notlogged">
+    <div class="user-actions">
+      <span class="textbold"
+        >hello, <a class="accent"> {{ username }}</a></span
+      >
+      <a class="logout textbold" (click)="logout()">wyloguj się</a>
+    </div>
+  </ng-template>
+  <ng-template #notlogged>
+    <div class="user-actions">
+      <button class="navibartext" [routerLink]="['/register']">
+        zarejestruj się
+      </button>
+      <button class="navibartext" [routerLink]="['/login']">zaloguj się</button>
+    </div>
+  </ng-template>
 </nav>

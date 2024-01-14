@@ -42,32 +42,45 @@
     display: flex;
     align-items: center;
 
+    .logout {
+      cursor: pointer;
+    }
+
+    .logout:hover {
+      color: #ed9842;
+      transition: ease-in-out 0.2s;
+    }
+
     button {
       padding: 20px;
       border-radius: 25px;
       background-color: #ed9842;
       justify-content: flex-end;
       align-items: center;
-      gap: 20px; 
+      gap: 20px;
       display: flex;
       border: none;
       margin: 0 10px;
       text-decoration: none;
     }
-    
+
     button:hover {
-      color: #FDF0E2;
+      color: #fdf0e2;
       transition: ease-in-out 0.2s;
       cursor: pointer;
     }
 
     button:active {
-      color: #FDF0E2;
+      color: #fdf0e2;
       background-color: #080604;
-      -webkit-box-shadow:inset 0px 0px 0px 2px #ed9842;
-      -moz-box-shadow:inset 0px 0px 0px 2px #ed9842;
-      box-shadow:inset 0px 0px 0px 2px #ed9842;
+      -webkit-box-shadow: inset 0px 0px 0px 2px #ed9842;
+      -moz-box-shadow: inset 0px 0px 0px 2px #ed9842;
+      box-shadow: inset 0px 0px 0px 2px #ed9842;
       cursor: pointer;
+    }
+
+    .logout {
+      margin-left: 30px;
     }
   }
 }

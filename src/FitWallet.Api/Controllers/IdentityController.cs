@@ -43,8 +43,7 @@ public class IdentityController : ApplicationControllerBase
             return TypedResults.Unauthorized();
         }
 
-        var userClaims = await GetUserClaims(user);
-        var token = GetJwtToken(userClaims);
+        var token = await GenerateJwtToken(user);
 
         return TypedResults.Ok(new AccessTokenResponse
         {
@@ -55,7 +54,7 @@ public class IdentityController : ApplicationControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<Results<Ok, ValidationProblem>> Register([FromBody] RegisterRequestDto request)
+    public async Task<Results<Ok<AccessTokenResponse>, ValidationProblem>> Register([FromBody] RegisterRequestDto request)
     {
         var user = Mapper.Map<RegisterRequestDto, User>(request);
 
@@ -66,8 +65,15 @@ public class IdentityController : ApplicationControllerBase
         }
 
         // Add to roles
+        
+        var token = await GenerateJwtToken(user);
 
-        return TypedResults.Ok();
+        return TypedResults.Ok(new AccessTokenResponse
+        {
+            AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
+            ExpiresIn = (long)token.ValidTo.Subtract(DateTime.Now).TotalSeconds,
+            RefreshToken = "c"// TODO: Add token
+        });
     }
 
     // TODO: Add token refresh
@@ -102,8 +108,10 @@ public class IdentityController : ApplicationControllerBase
         };
     }
         
-    private JwtSecurityToken GetJwtToken(IEnumerable<Claim> claims)
+    private async Task<JwtSecurityToken> GenerateJwtToken(User user)
     {
+        var userClaims = await GetUserClaims(user);
+
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SigningKey)),
             SecurityAlgorithms.HmacSha256);
@@ -112,7 +120,7 @@ public class IdentityController : ApplicationControllerBase
         (
             issuer: _jwtSettings.Issuer,
             audience: _jwtSettings.Audience,
-            claims: claims,
+            claims: userClaims,
             expires: DateTime.Now.AddSeconds(_jwtSettings.ExpirationSeconds),
             signingCredentials: signingCredentials
         );
