@@ -28,6 +28,7 @@ form {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  gap: 15px;
 
   label {
     color: white;
@@ -58,12 +59,12 @@ form {
     letter-spacing: 0.2px;
 
     &.input-error {
-      border-bottom: 1px solid red;
+      border-bottom: 1px solid #9d0208;
     }
   }
 
   .error-message {
-    color: red;
+    color: #9d0208;
     font-family: Poppins;
     font-size: 14px;
     font-style: normal;
@@ -93,5 +94,42 @@ form {
       opacity: 0.5;
       cursor: not-allowed;
     }
+
+    &:hover:not(:disabled) {
+      color: #fdf0e2;
+      transition: ease-in-out 0.2s;
+      cursor: pointer;
+    }
+
+    &:active:not(:disabled) {
+      color: #fdf0e2;
+      background-color: #080604;
+      -webkit-box-shadow: inset 0px 0px 0px 2px #ed9842;
+      -moz-box-shadow: inset 0px 0px 0px 2px #ed9842;
+      box-shadow: inset 0px 0px 0px 2px #ed9842;
+      cursor: pointer;
+    }
+  }
+}
+
+.register-instead {
+  margin-top: 2%;
+
+  a {
+    color: #ed9842;
+    margin-left: 10px;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+    -moz-transition: 0.3s ease-in-out;
+    -webkit-transition: 0.3s ease-in-out;
+    -o-transition: 0.3s ease-in-out;
+  }
+
+  a:hover {
+    color: #fdf0e2;
+    transition: 0.3s ease-in-out;
+    -moz-transition: 0.3s ease-in-out;
+    -webkit-transition: 0.3s ease-in-out;
+    -o-transition: 0.3s ease-in-out;
   }
 }

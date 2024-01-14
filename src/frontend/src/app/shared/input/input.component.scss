@@ -12,21 +12,36 @@
 }
 
 label {
-  color: white;
-  margin-bottom: 10px;
+  color: #FDF0E2;
+  padding-top: 0px;
+  padding: 10px;
+}
+
+img {
+  padding: 10px;
+  padding-right: 0;
 }
 
 input {
   border: none;
-  border-bottom: 1px solid #ed9842;
   background-color: transparent;
-  color: white;
-  outline: none; // Remove highlighting when clicked
+  color: #FDF0E2;
+  outline: none;
   text-align: center;
   width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #ed9842;
+  transition: 0.4s linear;
+  -moz-transition: 0.4s linear;
+  -webkit-transition: 0.4s linear;
+  -o-transition: 0.4s linear;
 
   &.input-error {
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid #9d0208;
+    transition: 0.4s linear;
+    -moz-transition: 0.4s linear;
+    -webkit-transition: 0.4s linear;
+    -o-transition: 0.4s linear;
   }
 }
 

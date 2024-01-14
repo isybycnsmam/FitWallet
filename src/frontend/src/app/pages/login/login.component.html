@@ -4,17 +4,9 @@
   </div>
 
   <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
-    <app-input
-      [formControll]="loginForm.controls.username"
-      label="login"
-      placeholder="lubiepieski"
-    />
+    <app-input [formControll]="loginForm.controls.username" label="login" placeholder="lubiepieski" />
 
-    <app-input
-      [formControll]="loginForm.controls.password"
-      label="hasło"
-      placeholder="12345678"
-    />
+    <app-input [formControll]="loginForm.controls.password" label="hasło" placeholder="12345678" />
 
     <div class="error-message" *ngIf="loginFailed">
       Nieprawidłowy login lub hasło
@@ -23,10 +15,11 @@
     <button type="submit" [disabled]="!loginForm.valid">
       zaloguj się
     </button>
-
-    <div class="header">
-      <div class="text">nie masz jeszcze konta? </div>
-      <div class="textbold accent"> zarejestruj się</div>
-  </div>
   </form>
+
+  <div class="register-instead">
+    <span class="text">nie masz jeszcze konta?</span>
+    <a class="textbold" [routerLink]="['/register']">zarejestruj się</a>
+  </div>
+
 </div>
