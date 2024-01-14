@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="header">
+    <div class="headertext title">dodaj nowy portfel</div>
+  </div>
+
+  <form [formGroup]="addWalletForm" (ngSubmit)="submitAdd()">
+    <app-input
+      [formControll]="addWalletForm.controls.name"
+      label="nazwa portfela"
+      placeholder="skarpetka"
+    ></app-input>
+
+    <app-input
+      [formControll]="addWalletForm.controls.description"
+      label="opis portfela"
+      placeholder="oszczędności w gotówce"
+    ></app-input>
+
+    <div class="action-buttons">
+      <button class="textbold" type="submit" [disabled]="!addWalletForm.valid">
+        dodaj ten portfel
+      </button>
+
+      <button class="textbold" (click)="goback()">wróć</button>
+    </div>
+  </form>
+</div>

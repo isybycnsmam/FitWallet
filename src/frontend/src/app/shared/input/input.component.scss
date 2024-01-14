@@ -12,7 +12,7 @@
 }
 
 label {
-  color: #FDF0E2;
+  color: #fdf0e2;
   padding-top: 0px;
   padding: 10px;
 }
@@ -25,7 +25,7 @@ img {
 input {
   border: none;
   background-color: transparent;
-  color: #FDF0E2;
+  color: #fdf0e2;
   outline: none;
   text-align: center;
   width: 100%;
@@ -35,6 +35,10 @@ input {
   -moz-transition: 0.4s linear;
   -webkit-transition: 0.4s linear;
   -o-transition: 0.4s linear;
+
+  &[type="color"] {
+    border: none;
+  }
 
   &.input-error {
     border-bottom: 1px solid #9d0208;
