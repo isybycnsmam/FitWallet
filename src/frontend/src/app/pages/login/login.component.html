@@ -15,6 +15,11 @@
     <button type="submit" [disabled]="!loginForm.valid">
       zaloguj się
     </button>
+
+    <div class="register-instead">
+      <span class="text">nie masz jeszcze konta?</span>
+      <a class="textbold accent" [routerLink]="['/register']">zarejestruj się</a>
+  </div>
   </form>
 
   <div class="register-instead">
