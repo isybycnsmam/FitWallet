@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { WalletStatisticsModel } from '../../models/wallets/wallet-statistics';
 import { CommonModule, NgFor } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { StatisticsPieChartComponent } from '../../shared/statistics-pie-chart/statistics-pie-chart.component';
 
 @Component({
@@ -11,7 +11,7 @@ import { StatisticsPieChartComponent } from '../../shared/statistics-pie-chart/s
   standalone: true,
   templateUrl: './wallets.component.html',
   styleUrl: './wallets.component.scss',
-  imports: [CommonModule, NgFor, StatisticsPieChartComponent],
+  imports: [CommonModule, NgFor, StatisticsPieChartComponent, RouterModule],
 })
 export class WalletsComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) {}
