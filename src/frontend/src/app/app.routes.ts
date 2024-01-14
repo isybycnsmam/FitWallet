@@ -5,11 +5,13 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { onlyLoggedUsersGuard, onlyNotLoggedUsersGuard } from './guards/auth.guard';
 import { WalletsComponent } from './pages/wallets/wallets.component';
+import { ErrorPageComponent } from './pages/errorpage/errorpage.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'how-to', pathMatch: 'full' },
   { path: 'how-to', component: HowToComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'errorpage', component: ErrorPageComponent },
   { path: 'register', component: RegisterComponent, canActivate: [onlyNotLoggedUsersGuard] },
   { path: 'login', component: LoginComponent, canActivate: [onlyNotLoggedUsersGuard] },
   { path: 'wallets', component: WalletsComponent, canActivate: [onlyLoggedUsersGuard]},
