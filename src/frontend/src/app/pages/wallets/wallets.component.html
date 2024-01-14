@@ -1,11 +1,15 @@
-<canvas
-  class="chart"
-  baseChart
-  [type]="'pie'"
-  [datasets]="pieChartDatasets"
-  [labels]="pieChartLabels"
-  [options]="pieChartOptions"
-  [plugins]="pieChartPlugins"
-  [legend]="pieChartLegend"
->
-</canvas>
+<div *ngFor="let statistic of statisticsModels">
+  <div class="statistic-summary">
+    <button class="textbold" *ngIf="statistic.id !== 'summary'; else summary">
+      {{ statistic.name }}
+    </button>
+
+    <ng-template #summary>
+      <span class="textbold accent">podsumowanie Twoich kont</span>
+    </ng-template>
+
+    <span class="text">łączne wydatki: {{ statistic.totalSpendings }} zł</span>
+  </div>
+
+  <app-statistics-pie-chart [model]="statistic"></app-statistics-pie-chart>
+</div>

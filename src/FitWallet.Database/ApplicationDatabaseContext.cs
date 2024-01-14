@@ -1,5 +1,6 @@
 ﻿using FitWallet.Core.Models;
 using FitWallet.Core.Models.Transactions;
+using FitWallet.Core.Models.Views;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,8 @@ public class ApplicationDatabaseContext : IdentityDbContext<User>
     public DbSet<Category> Categories { get; set; }
     public DbSet<Transaction> Transactions { get; set; }
     public DbSet<TransactionElement> TransactionElements { get; set; }
+
+    public DbSet<WalletCategorySpending> WalletsSpendingsPerCategory { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -34,6 +37,10 @@ public class ApplicationDatabaseContext : IdentityDbContext<User>
             .WithMany()
             .HasForeignKey(te => te.CategoryId)
             .IsRequired();
+
+        modelBuilder.Entity<WalletCategorySpending>()
+            .ToView("wallets_category_spendings")
+            .HasNoKey();
     }
 
     private static void ConfigureWalletEntity(ModelBuilder modelBuilder)

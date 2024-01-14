@@ -1,44 +1,49 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Chart, ChartOptions } from 'chart.js';
-import { NgChartsModule } from 'ng2-charts';
 import { environment } from '../../../environments/environment';
-import { WalletModel } from '../../models/wallets/wallet';
+import { WalletStatisticsModel } from '../../models/wallets/wallet-statistics';
+import { CommonModule, NgFor } from '@angular/common';
+import { Router } from '@angular/router';
+import { StatisticsPieChartComponent } from '../../shared/statistics-pie-chart/statistics-pie-chart.component';
 
 @Component({
   selector: 'app-wallets',
   standalone: true,
-  imports: [NgChartsModule],
   templateUrl: './wallets.component.html',
   styleUrl: './wallets.component.scss',
+  imports: [CommonModule, NgFor, StatisticsPieChartComponent],
 })
 export class WalletsComponent implements OnInit {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
+
+  statisticsModels: WalletStatisticsModel[] = [];
 
   ngOnInit(): void {
     this.http
-      .get<WalletModel[]>(`${environment.apiUrl}/wallets`)
+      .get<WalletStatisticsModel[]>(`${environment.apiUrl}/statistics/wallets`)
       .subscribe((data) => {
-        data.forEach((wallet) => {
-          this.pieChartLabels.push(wallet.name);
-          this.pieChartDatasets[0].data.push(1);
-          this.pieChartDatasets[0].data.push(1);
-        });
+        if (!data?.length) {
+          this.router.navigate(['/wallets/add']);
+          return;
+        }
 
-        this.pieChartLabels = data.map((wallet) => wallet.name);
+        if (data.length === 1) {
+          this.statisticsModels = data;
+          return;
+        }
+
+        const summaryWallet: WalletStatisticsModel = data.reduce(
+          (prev, current) => {
+            return {
+              id: 'summary',
+              name: 'Podsumowanie',
+              categories: [...prev.categories, ...current.categories],
+              totalSpendings: prev.totalSpendings + current.totalSpendings,
+            };
+          }
+        );
+
+        this.statisticsModels = [summaryWallet, ...data];
       });
   }
-
-  public pieChartOptions: ChartOptions<'pie'> = {
-    responsive: false,
-    borderColor: '#000',
-  };
-  pieChartLabels: string[] = [];
-  public pieChartDatasets: { data: number[] }[] = [
-    {
-      data: [  ],
-    },
-  ];
-  public pieChartLegend = true;
-  public pieChartPlugins = [];
 }
