@@ -1,6 +1,7 @@
 <div class="wrapper">
   <label class="textbold" for="username">{{ label }}: </label>
   <input
+    [ngStyle]="{'background-color':type === 'color' ? formControll.value : 'transparent'}"
     [formControl]="formControll"
     [type]="type"
     class="text"
