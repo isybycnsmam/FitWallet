@@ -33,6 +33,11 @@ public class Program
         .AddDefaultTokenProviders()
         .AddEntityFrameworkStores<ApplicationDatabaseContext>();
 
+        builder.Services.AddCors(options => options.AddPolicy("Frontend", policy =>
+        {
+            policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        }));
+
         builder.Services.AddAuthorization(options =>
         {
             //options.AddPolicy();
@@ -42,11 +47,6 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddCors(options => options.AddPolicy("Frontend", policy =>
-        {
-            policy.WithOrigins("https://localhost:4200").AllowAnyMethod().AllowAnyHeader();
-            policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
-        }));
 
         var app = builder.Build();
 
@@ -55,12 +55,12 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
-        app.UseHttpsRedirection();
+        
+        app.UseCors("Frontend");
+        //app.UseHttpsRedirection();
 
         app.UseAuthentication();
         app.UseAuthorization();
-        app.UseCors("Frontend");
 
         app.MapControllers();
 
