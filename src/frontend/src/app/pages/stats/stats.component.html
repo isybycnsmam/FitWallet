@@ -2,29 +2,55 @@
   <div class="header">
     <div class="headertext title">twoje statystyki</div>
   </div>
-</div>
-  <div *ngFor="let statistic of statisticsModels" class="charts">
-    <div class="statistic-summary">
-      <div class="walletname">
-        <button class="textbold" *ngIf="statistic.id !== 'summary'; else summary">
-          {{ statistic.name }}
-        </button>
-      </div>
-
-      <ng-template #summary>
-        <div class="content">
-          <div class="header">
-            <div class="textbold accent margintop">podsumowanie twoich kont</div>
-          </div>
-        </div>
-      </ng-template>
-
-      <div class="content">
-        <div class="header">
-          <div class="textbold marginbottom">łączne wydatki: {{ statistic.totalSpendings }} zł </div>
-        </div>
-      </div>
-    </div>
-
-    <app-statistics-pie-chart [model]="statistic"></app-statistics-pie-chart>
+  <div class="header">
+    <div class="textbold accent margintop">bieżący miesiąc</div>
   </div>
+  <div class="header">
+    <div class="textbold margintop">wpływy: zł </div>
+  </div>
+  <div class="header">
+    <div class="textbold margintop">wydatki: {{ statisticModel.totalSpendings }} zł </div>
+  </div>
+  <div class="header">
+    <div class="textbold margintop">udało Ci się zaoszczędzić: <span class="accent">wpływy-wydatki UZUPEŁNIJ</span> zł
+    </div>
+  </div>
+  <div class="header">
+    <div class="textbold margintop">najwięcej wydałeś na: <span class="accent">KATEGORIĘ UZUPEŁNIJ</span> , <span
+        class="accent">WARTOŚĆ UZUPEŁNIJ</span> zł </div>
+  </div>
+</div>
+
+
+<div class="header"></div>
+
+
+<app-statistics-pie-chart [model]="statisticModel"></app-statistics-pie-chart>
+
+<div class="header">
+  <div class="textbold accent margintop">poprzedni miesiąc</div>
+</div>
+<div class="header">
+  <div class="textbold margintop">wpływy: zł </div>
+</div>
+<div class="header">
+  <div class="textbold margintop">wydatki: zł </div>
+</div>
+
+<div class="header">
+  <div class="textbold accent margintop">poprzedni rok</div>
+</div>
+<div class="header">
+  <div class="textbold margintop">wpływy: zł </div>
+</div>
+<div class="header">
+  <div class="textbold margintop">wydatki: zł </div>
+</div>
+<div class="header">
+  <div class="textbold margintop">udało Ci się zaoszczędzić: <span class="accent">wpływy-wydatki UZUPEŁNIJ</span> zł
+  </div>
+</div>
+<div class="header">
+  <div class="textbold margintop">najwięcej wydałeś na: <span class="accent">KATEGORIĘ UZUPEŁNIJ</span> , <span
+      class="accent">WARTOŚĆ UZUPEŁNIJ</span> zł </div>
+</div>

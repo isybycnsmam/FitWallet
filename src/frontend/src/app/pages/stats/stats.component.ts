@@ -16,7 +16,7 @@ import { StatisticsPieChartComponent } from '../../shared/statistics-pie-chart/s
 export class StatsComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) {}
 
-  statisticsModels: WalletStatisticsModel[] = [];
+  statisticModel: WalletStatisticsModel;
 
   ngOnInit(): void {
     this.http
@@ -27,12 +27,7 @@ export class StatsComponent implements OnInit {
           return;
         }
 
-        if (data.length === 1) {
-          this.statisticsModels = data;
-          return;
-        }
-
-        const summaryWallet: WalletStatisticsModel = data.reduce(
+        this.statisticModel = data.reduce(
           (prev, current) => {
             return {
               id: 'summary',
@@ -42,8 +37,6 @@ export class StatsComponent implements OnInit {
             };
           }
         );
-
-        this.statisticsModels = [summaryWallet, ...data];
       });
   }
 }
