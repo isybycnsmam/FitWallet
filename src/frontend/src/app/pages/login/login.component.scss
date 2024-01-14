@@ -33,32 +33,19 @@ form {
   gap: 15px;
 
   label {
-    color: white;
+    color: #fdf0e2;
     margin-bottom: 10px;
-    /* text bold */
-    font-family: Poppins;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 28px; /* 155.556% */
-    letter-spacing: 0.2px;
   }
 
   input {
     border: none;
     border-bottom: 1px solid #ed9842;
     background-color: transparent;
-    color: white;
+    color: #fdf0e2;
     outline: none; // Remove highlighting when clicked
     text-align: center;
     margin-bottom: 3%;
     width: 40%;
-    font-family: Poppins;
-    font-size: 18px;
-    font-style: italic;
-    font-weight: 300;
-    line-height: 28px; /* 155.556% */
-    letter-spacing: 0.2px;
 
     &.input-error {
       border-bottom: 1px solid #9d0208;
@@ -116,6 +103,7 @@ form {
 
 .register-instead {
   margin-top: 2%;
+  margin-bottom: 2%;
 
   a {
     color: #ed9842;
