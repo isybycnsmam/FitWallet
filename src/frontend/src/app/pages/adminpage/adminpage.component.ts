@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
   selector: 'crudpage',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './crudpage.component.html',
-  styleUrl: './crudpage.component.scss'
+  templateUrl: './adminpage.component.html',
+  styleUrl: './adminpage.component.scss'
 })
-export class CrudPageComponent {}
+export class AdminPageComponent {}
