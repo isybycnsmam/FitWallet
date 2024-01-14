@@ -15,4 +15,8 @@ public sealed class Company : ModelBase
 
     public string ParentId { get; set; }
     public Company Parent { get; set; }
+    
+    public string UserId { get; set; }
+    public User User { get; set; }
+
 }

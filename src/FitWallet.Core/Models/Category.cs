@@ -15,4 +15,7 @@ public sealed class Category : ModelBase
 
     public string ParentId { get; set; }
     public Category Parent { get; set; }
+    
+    public string UserId { get; set; }
+    public User User { get; set; }
 }

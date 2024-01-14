@@ -23,23 +23,17 @@ public class ApplicationDatabaseContext : IdentityDbContext<User>
 
         ConfigureTransactionEntity(modelBuilder);
 
+        ConfigureCompanyEntity(modelBuilder);
+
+        ConfigureCategoryEntity(modelBuilder);
+
+        // TODO: TransactionElement category relation?
+
         modelBuilder.Entity<TransactionElement>()
             .HasOne(te => te.Category)
             .WithMany()
             .HasForeignKey(te => te.CategoryId)
             .IsRequired();
-
-        modelBuilder.Entity<Company>()
-            .HasOne(c => c.Parent)
-            .WithMany()
-            .HasForeignKey(c => c.ParentId)
-            .IsRequired(false);
-
-        modelBuilder.Entity<Category>()
-            .HasOne(c => c.Parent)
-            .WithMany()
-            .HasForeignKey(c => c.ParentId)
-            .IsRequired(false);
     }
 
     private static void ConfigureWalletEntity(ModelBuilder modelBuilder)
@@ -74,5 +68,47 @@ public class ApplicationDatabaseContext : IdentityDbContext<User>
             .HasForeignKey(e => e.TransactionId)
             .IsRequired();
 
+    }
+
+    private static void ConfigureCompanyEntity(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Company>()
+            .HasIndex(c => new { c.UserId, c.Name })
+            .IsUnique();
+
+        modelBuilder.Entity<Company>()
+            .HasOne(c => c.Parent)
+            .WithMany()
+            .HasForeignKey(c => c.ParentId)
+            .IsRequired(false);
+
+        modelBuilder.Entity<Company>()
+            .HasOne(c => c.User)
+            .WithMany(u => u.Companies)
+            .HasForeignKey(c => c.UserId)
+            .IsRequired();
+    }
+    
+    private static void ConfigureCategoryEntity(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Category>()
+            .HasIndex(c => new { c.UserId, c.Name })
+            .IsUnique();
+
+        modelBuilder.Entity<Category>()
+            .HasIndex(c => new { c.UserId, c.DisplayColor })
+            .IsUnique();
+
+        modelBuilder.Entity<Category>()
+            .HasOne(c => c.Parent)
+            .WithMany()
+            .HasForeignKey(c => c.ParentId)
+            .IsRequired(false);
+
+        modelBuilder.Entity<Category>()
+            .HasOne(c => c.User)
+            .WithMany(u => u.Categories)
+            .HasForeignKey(c => c.UserId)
+            .IsRequired();
     }
 }

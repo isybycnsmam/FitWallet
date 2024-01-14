@@ -7,7 +7,9 @@ namespace FitWallet.Core.Models.Transactions;
 /// </summary>
 public sealed class TransactionElement : ModelBase
 {
+    public string Name { get; set; }
     public double Value { get; set; }
+    public int Quantity { get; set; }
     public string Description { get; set; }
 
     [Required]

@@ -13,4 +13,8 @@ public class User : IdentityUser
     public string FirstName { get; set; }
 
     public List<Wallet> Wallets { get; set; }
+
+    public List<Company> Companies { get; set; }
+
+    public List<Category> Categories { get; set; }
 }
