@@ -12,7 +12,7 @@
 }
 
 label {
-  color: #FDF0E2;
+  color: #fdf0e2;
   padding-top: 0px;
   padding: 10px;
 }
@@ -25,7 +25,7 @@ img {
 input {
   border: none;
   background-color: transparent;
-  color: #FDF0E2;
+  color: #fdf0e2;
   outline: none;
   text-align: center;
   width: 100%;
@@ -45,6 +45,14 @@ input {
   }
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #fdf0e2 !important;
+}
+
 .tooltip {
   position: absolute;
   right: 5px;
@@ -54,12 +62,11 @@ input {
   .tooltiptext {
     visibility: hidden;
     width: 120px;
-    background-color: white;
-    color: black;
+    background-color: #080604;
+    color: #fdf0e2;
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
-
     position: absolute;
     z-index: 1;
     top: 100%;

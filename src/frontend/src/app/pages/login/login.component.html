@@ -4,9 +4,9 @@
   </div>
 
   <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
-    <app-input [formControll]="loginForm.controls.username" label="login" placeholder="lubiepieski" />
+    <app-input [formControll]="loginForm.controls.username" label="login" placeholder="twój login" />
 
-    <app-input [formControll]="loginForm.controls.password" label="hasło" type="password" placeholder="12345678" />
+    <app-input [formControll]="loginForm.controls.password" label="hasło" type="password" placeholder="twoje hasło" />
 
     <div class="error-message" *ngIf="loginFailed">
       Nieprawidłowy login lub hasło
