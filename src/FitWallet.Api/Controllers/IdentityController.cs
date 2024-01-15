@@ -22,8 +22,8 @@ public class IdentityController : ApplicationControllerBase
     public IdentityController(
         //ILogger logger,
         IMapper mapper,
-        JwtSettings jwtSettings, 
-        UserManager<User> userManager, 
+        JwtSettings jwtSettings,
+        UserManager<User> userManager,
         RoleManager<IdentityRole> roleManager) : base(null, mapper)
     {
         _jwtSettings = jwtSettings;
@@ -37,7 +37,7 @@ public class IdentityController : ApplicationControllerBase
     {
         var user = await _userManager.FindByNameAsync(request.Username);
 
-        if (user is null || 
+        if (user is null ||
             await _userManager.CheckPasswordAsync(user, request.Password) == false)
         {
             return TypedResults.Unauthorized();
@@ -48,8 +48,8 @@ public class IdentityController : ApplicationControllerBase
         return TypedResults.Ok(new AccessTokenResponse
         {
             AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
-            ExpiresIn = (long)token.ValidTo.Subtract(DateTime.Now).TotalSeconds,
-            RefreshToken = "c"// TODO: Add token
+            ExpiresIn = _jwtSettings.ExpirationSeconds,
+            RefreshToken = string.Empty// TODO: Add token
         });
     }
 
@@ -63,20 +63,16 @@ public class IdentityController : ApplicationControllerBase
         {
             return CreateValidationProblem(createResult);
         }
-
-        // Add to roles
         
         var token = await GenerateJwtToken(user);
 
         return TypedResults.Ok(new AccessTokenResponse
         {
             AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
-            ExpiresIn = (long)token.ValidTo.Subtract(DateTime.Now).TotalSeconds,
-            RefreshToken = "c"// TODO: Add token
+            ExpiresIn = _jwtSettings.ExpirationSeconds,
+            RefreshToken = string.Empty// TODO: Add refresh token
         });
     }
-
-    // TODO: Add token refresh
 
 
     private static ValidationProblem CreateValidationProblem(IdentityResult result)
@@ -96,18 +92,19 @@ public class IdentityController : ApplicationControllerBase
     private async Task<List<Claim>> GetUserClaims(User user)
     {
         var userRoles = await _userManager.GetRolesAsync(user);
-            
+
         var userRolesClaims = userRoles.Select(userRole =>
             new Claim(ClaimTypes.Role, userRole));
 
         return new List<Claim>(userRolesClaims)
         {
             new(ClaimTypes.Name, user.UserName!),
+            new(ClaimTypes.GivenName, user.FirstName!),
             new(ClaimTypes.NameIdentifier, user.Id),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
     }
-        
+
     private async Task<JwtSecurityToken> GenerateJwtToken(User user)
     {
         var userClaims = await GetUserClaims(user);

@@ -1,0 +1,39 @@
+version: "3"
+services:
+  fitwallet:
+    image: fitwallet
+    build:
+      context: .
+      dockerfile: src/FitWallet.Api/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+  frontend:
+    image: frontend
+    build:
+      context: .
+      dockerfile: src/frontend/Dockerfile
+    depends_on:
+      - fitwallet
+  db:
+    image: postgres:15.5-alpine3.19
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: zaq1@WSX
+      POSTGRES_USER: ufitwallet
+      POSTGRES_DB: fit_wallet
+      PGPORT: 3306
+    # ports:
+      # - "5432:5432"
+  proxy:
+    image: nginx
+    build:
+      context: .
+      dockerfile: src/proxy/Dockerfile
+    restart: always
+    ports:
+      - "80:4200"
+    depends_on:
+      - fitwallet
+      - frontend

@@ -444,6 +444,7 @@ src/frontend/.angular
 /libpeerconnection.log
 testem.log
 /typings
+dist
 
 # System files
 .DS_Store

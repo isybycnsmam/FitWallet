@@ -15,9 +15,9 @@ public class WalletsController : ApplicationControllerBase
     private readonly ApplicationDatabaseContext _context;
 
     public WalletsController(
-        //ILogger logger,
+        ILogger<WalletsController> logger,
         IMapper mapper,
-        ApplicationDatabaseContext context) : base(null, mapper)
+        ApplicationDatabaseContext context) : base(logger, mapper)
     {
         _context = context;
     }

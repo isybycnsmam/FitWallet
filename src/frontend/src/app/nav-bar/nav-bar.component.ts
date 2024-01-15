@@ -17,11 +17,14 @@ export class NavBarComponent implements OnInit {
   ) {}
 
   isUserLoggedIn: boolean = this.authService.isLoggedIn();
-  username: string = 'great emperor';
+  username: string;
 
   ngOnInit(): void {
     this.authService.tokenModifiedSubject.subscribe(() => {
       this.isUserLoggedIn = this.authService.isLoggedIn();
+      if (this.isUserLoggedIn) {
+        this.username = this.authService.getUserName();
+      }
     });
   }
 
