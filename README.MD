@@ -4,7 +4,8 @@ Link do projektu w Figmie:
 https://www.figma.com/file/5joPPq5aS1SpgkHBdT1U4O/FitWallet?type=design&node-id=0%3A1&mode=design&t=22rFORFBOSesHvKO-1
 
 Instrukcja uruchomienia aplikacji:
-
+Obecnie pracujemy żeby dostarczyć aplikację za pomocą narzędzia jakim jest doker.
+Niestety jeden z serwisów nie chce startować, naprawiamy to dniem i nocą, prosimy o cierpliwość <3
 
 
 Dokumentacja:
