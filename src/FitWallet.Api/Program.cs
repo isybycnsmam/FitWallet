@@ -14,6 +14,8 @@ public class Program
 {
     public static void Main(string[] args)
     {
+        Thread.Sleep(2000);
+
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddAutoMapper(config => 
