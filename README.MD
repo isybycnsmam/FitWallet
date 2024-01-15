@@ -3,9 +3,15 @@ Pelny plik dokumentacji jest dostępny w fitwallet\doc.
 Link do projektu w Figmie:
 https://www.figma.com/file/5joPPq5aS1SpgkHBdT1U4O/FitWallet?type=design&node-id=0%3A1&mode=design&t=22rFORFBOSesHvKO-1
 
-Instrukcja uruchomienia aplikacji:
-Obecnie pracujemy żeby dostarczyć aplikację za pomocą narzędzia jakim jest doker.
-Niestety jeden z serwisów nie chce startować, naprawiamy to dniem i nocą, prosimy o cierpliwość <3
+# Instrukcja uruchomienia aplikacji
+Do uruchomienia aplikacji potrzebny jest docker
+Gdy już mamy go zainstalowanego otwieramy konsolę w gównym katalogu repozytorium*
+*pobranie repozytorium "git clone https://github.com/isybycnsmam/FitWallet.git" (potrzebujemy mieć gita zainstalowanego)
+gdy już jesteśmy w łównym katalogu repozytorium wykonajmy sobie kontrolne polecenie ls
+powinniśmy widzieć  między innymiplik docker-compose.yaml jeżeli go widzimy wykonujemy polecenie
+docker compose up --build
+teraz aplikacja powinna wystartowaćg
+gdy proces w konsoli dobiegnie końca aplikacja znajduje się pod adresem http://localhost:4200
 
 
 Dokumentacja:
