@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="header">
+    <div class="headertext title">
+      {{ isEdit ? "edytuj kategorię" : "dodaj nową kategorię"}}
+    </div>
+  </div>
+
+  <div class="preview">
+    <span class="textbold">podgląd:</span>
+    <button
+      class="preview textbold"
+      [style.background-color]="addCategoryForm.controls.color.value"
+    >
+      {{ addCategoryForm.controls.name.value }}
+    </button>
+  </div>
+
+  <form [formGroup]="addCategoryForm" (ngSubmit)="submitAdd()">
+    <app-input
+      [formControll]="addCategoryForm.controls.name"
+      label="nazwa kategorii"
+      placeholder="chemia domowa"
+    ></app-input>
+
+    <app-input
+      [formControll]="addCategoryForm.controls.color"
+      label="kolor"
+      type="color"
+      placeholder="wybierz kolor"
+    ></app-input>
+
+    <div class="action-buttons">
+      <button
+        class="textbold"
+        type="submit"
+        [disabled]="!addCategoryForm.valid"
+      >
+        {{ isEdit ? "edytuj" : "dodaj" }} kategorię
+      </button>
+
+      <button class="textbold" [routerLink]="['/categories']">wróć</button>
+    </div>
+  </form>
+</div>

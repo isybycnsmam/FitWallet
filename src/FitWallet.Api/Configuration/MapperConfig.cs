@@ -15,5 +15,11 @@ public class MapperConfig : Profile
             .Ignore(e => e.Disabled);
 
         CreateMap<RegisterRequestDto, User>();
+
+        CreateMap<Category, CategoryDto>();
+        CreateMap<CategoryDto, Category>()
+            .Ignore(e => e.Id);
+
+
     }
 }

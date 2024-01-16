@@ -4,6 +4,23 @@
   </div>
 
   <div class="header">
-    <button class="navibartext" [routerLink]="['/']">dodaj kategorię</button>
+    <button class="navibartext" [routerLink]="['/categories/add-edit']">
+      dodaj kategorię
+    </button>
+  </div>
+
+  <div class="categories">
+    <div
+      class="category textbold"
+      *ngFor="let category of categories"
+      [style.background-color]="'#' + category.displayColor.toString(16)"
+    >
+      {{ category.name }}
+      <div class="details">
+        <span>{{ category.description }}</span>
+        <a [routerLink]="['/categories/add-edit', category.id]">edytuj</a>
+        <a (click)="deleteCategory(category.id)">usuń</a>
+      </div>
+    </div>
   </div>
 </div>

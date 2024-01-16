@@ -46,13 +46,14 @@ namespace FitWallet.Api.Controllers
 
             var categorySpendings = walletSpendings
                 .Where(e => e.TotalSpent is not null and not 0)
-                .Select(e => new CategoryStatisticsDto()
+                .Select(e => new CategoryStatisticsDto
                 {
                     Id = e.CategoryId,
                     Name = e.CategoryName,
                     TotalSpendings = e.TotalSpent.Value,
                     DisplayColor = e.CategoryDisplayColor ?? 0
                 })
+                .OrderByDescending(e => e.TotalSpendings)
                 .ToList();
 
             return new WalletStatisticsDto()

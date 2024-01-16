@@ -14,6 +14,7 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { AdminPageComponent } from './pages/adminpage/adminpage.component';
 import { AddWalletComponent } from './pages/wallets/add-wallet/add-wallet.component';
+import { AddEditCategoryComponent } from './pages/categories/add-edit-category/add-edit-category.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'how-to', pathMatch: 'full' },
@@ -44,6 +45,15 @@ export const routes: Routes = [
     component: AddWalletComponent,
     canActivate: [onlyLoggedUsersGuard],
   },
-
+  {
+    path: 'categories/add-edit',
+    component: AddEditCategoryComponent,
+    canActivate: [onlyLoggedUsersGuard],
+  },
+  {
+    path: 'categories/add-edit/:id',
+    component: AddEditCategoryComponent,
+    canActivate: [onlyLoggedUsersGuard],
+  },
   { path: '**', redirectTo: 'how-to' },
 ];

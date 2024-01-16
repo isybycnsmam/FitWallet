@@ -73,7 +73,7 @@ public class WalletsController : ApplicationControllerBase
             return TypedResults.NotFound();
         }
 
-        if (await _context.Wallets.AnyAsync(e => e.Name == wallet.Name && e.UserId == userId))
+        if (await _context.Wallets.AnyAsync(e => e.Name == request.Name && e.UserId == userId))
         {
             return TypedResults.Conflict("There is already a wallet with this name");
         }

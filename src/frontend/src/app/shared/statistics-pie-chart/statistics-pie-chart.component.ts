@@ -4,6 +4,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { WalletStatisticsModel } from '../../models/wallets/wallet-statistics';
 import { NgFor } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { CategoryStatisticsModel } from '../../models/wallets/category-statistics';
 
 @Component({
   selector: 'app-statistics-pie-chart',
@@ -23,14 +24,17 @@ export class StatisticsPieChartComponent implements OnInit {
   @Input() borderColor: string = `#000`;
 
   ngOnInit(): void {
-    this.initializeChart();
-    this.initializeButtons();
+    const categories = this.getSortedCategories();
+    console.log(categories);
+
+    this.initializeChart(categories);
+    this.initializeButtons(categories);
   }
 
-  initializeChart() {
-    const labels = this.model.categories.map((c) => c.name);
-    const data = this.model.categories.map((c) => c.totalSpendings);
-    const colors = this.model.categories.map(
+  initializeChart(categories: CategoryStatisticsModel[]) {
+    const labels = categories.map((c) => c.name);
+    const data = categories.map((c) => c.totalSpendings);
+    const colors = categories.map(
       (c) => this.getHexColor(c.displayColor)
     );
 
@@ -50,13 +54,13 @@ export class StatisticsPieChartComponent implements OnInit {
     };
   }
 
-  initializeButtons() {
-    const totalSpendings = this.model.categories.reduce(
+  initializeButtons(categories: CategoryStatisticsModel[]) {
+    const totalSpendings = categories.reduce(
       (sum, category) => sum + category.totalSpendings,
       0
     );
 
-    const buttonsData = this.model.categories.map((category) => {
+    const buttonsData = categories.map((category) => {
       const percentage = Math.round(
         (category.totalSpendings / totalSpendings) * 100
       );
@@ -72,6 +76,20 @@ export class StatisticsPieChartComponent implements OnInit {
 
     this.leftPanelButtons = buttonsData.slice(0, midpoint);
     this.rightPanelButtons = buttonsData.slice(midpoint);
+  }
+
+  getSortedCategories() {
+    return this.model.categories.sort((a, b) => {
+      if (a.totalSpendings > b.totalSpendings) {
+        return -1;
+      }
+
+      if (a.totalSpendings < b.totalSpendings) {
+        return 1;
+      }
+
+      return 0;
+    });
   }
 
   getHexColor(color: number) {
