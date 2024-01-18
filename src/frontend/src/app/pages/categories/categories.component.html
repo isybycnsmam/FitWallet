@@ -10,11 +10,8 @@
   </div>
 
   <div class="categories">
-    <div
-      class="category textbold"
-      *ngFor="let category of categories"
-      [style.background-color]="'#' + category.displayColor.toString(16)"
-    >
+    <div class="category textbold" *ngFor="let category of categories"
+      [style.background-color]="'#' + category.displayColor.toString(16)">
       {{ category.name }}
       <div class="details">
         <span>{{ category.description }}</span>

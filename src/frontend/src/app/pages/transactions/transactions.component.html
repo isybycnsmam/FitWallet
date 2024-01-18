@@ -25,102 +25,76 @@
       <div class="textbold accent w150">zarządzaj</div>
     </div>
 
-    <div
-      class="tablerow tablerowcolorv1"
-      *ngFor="let transaction of transactions"
-    >
-      <div class="tablecell text w250">
-        {{ transaction.walletName }}
+    <div class="tablerow" *ngFor="let transaction of transactions">
+
+      <div class="contentblock tablerowcolor">
+        <div class="text w250">
+          {{ transaction.walletName }}
+        </div>
+        <div class="text w150">
+          {{ sumTransaction(transaction) }}
+        </div>
+        <div class="text w300">
+          {{ transaction.description ? transaction.description : "-" }}
+        </div>
+        <div class="text w225">{{ transaction.companyName }}</div>
+        <div class="text w180">{{ transaction.operationDate | date:'dd-MM-yyyy' }}</div>
+        <div class="tablecellimg w150">
+          <a class="text" (click)="deleteTransaction(transaction.id)"><img src="../../assets/delete.png" /></a>
+          <a class="text" [routerLink]="['/transactions/add-edit', transaction.id]"><img
+              src="../../assets/edit.png" /></a>
+          <a class="text" (click)="expandTransaction(transaction.id)"><img src="../../assets/doubledown.png" /></a>
+        </div>
       </div>
-      <div class="tablecell text w150">
-        {{ sumTransaction(transaction) }}
+
+      <div class="contentblock">
+        <div class="elements">
+          <div class="elementsheadrow">
+            <div class="textbold w250">
+              nazwa
+            </div>
+            <div class="textbold w150">
+              wartość
+            </div>
+            <div class="textbold w300">
+              ile sztuk?
+            </div>
+            <div class="textbold w225">
+              kategoria
+            </div>
+            <div class="textbold w180">
+              opis
+            </div>
+            <div class="textbold w150">
+              zarządzaj
+            </div>
+          </div>
+
+          <div class="elementstablerow"  *ngFor="let element of transaction.elements">
+            <div class="tablecell text w250">
+              {{ element.name }}
+            </div>
+            <div class="tablecell text w150">
+              {{ element.value }}
+            </div>
+            <div class="tablecell text w300">
+              {{ element.quantity }}
+            </div>
+            <div class="tablecell text w225">
+              {{ element.categoryName }}
+            </div>
+            <div class="tablecell text w180">
+              {{ element.description ? element.description : "-" }}
+            </div>
+            <div class="tablecell tablecellimg w150">
+              <a class="text" [routerLink]="['/']"><img src="../../assets/delete.png" /></a>
+              <a class="text" [routerLink]="['/']"><img src="../../assets/edit.png" /></a>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="tablecell text w300">
-        {{ transaction.description ? transaction.description : "-" }}
-      </div>
-      <div class="tablecell text w225">{{ transaction.companyName }}</div>
-      <div class="tablecell text w180">{{ transaction.operationDate | date:'dd-MM-yyyy' }}</div>
-      <div class="tablecell tablecellimg w150">
-        <a class="text" (click)="deleteTransaction(transaction.id)"
-          ><img src="../../assets/delete.png"
-        /></a>
-        <a class="text" [routerLink]="['/transactions/add-edit', transaction.id]"
-          ><img src="../../assets/edit.png"
-        /></a>
-        <a class="text" (click)="expandTransaction(transaction.id)"
-          ><img src="../../assets/doubledown.png"
-        /></a>
-      </div>
+
     </div>
-
-    <!--
-      TODO: Add transactions elements
-      <div class="elements">
-      <div class="elementsheadrow">
-        <div class="textbold w250">
-          nazwa
-        </div>
-        <div class="textbold w150">
-          wartość
-        </div>
-        <div class="textbold w300">
-          ile sztuk?
-        </div>
-        <div class="textbold w225">
-          kategoria
-        </div>
-        <div class="textbold w180">
-          opis
-        </div>
-        <div class="textbold w150">
-          zarządzaj
-        </div>
-      </div>
-
-      <div class="tablerow">
-        <div class="tablecell text w250">
-          lek XYZ
-        </div>
-        <div class="tablecell text w150">
-          -100 zł
-        </div>
-        <div class="tablecell text w300">
-          1
-        </div>
-        <div class="tablecell text w225">
-          apteka
-        </div>
-        <div class="tablecell text w180">
-          lek dla Reksia
-        </div>
-        <div class="tablecell tablecellimg w150">
-          <a class="text" [routerLink]="['/']"><img src="../../assets/delete.png" /></a>
-          <a class="text" [routerLink]="['/']"><img src="../../assets/edit.png" /></a>
-        </div>
-      </div>
-
-      <div class="tablerow">
-        <div class="tablecell text w250">
-          lek ABC
-        </div>
-        <div class="tablecell text w150">
-          -100 zł
-        </div>
-        <div class="tablecell text w300">
-          1
-        </div>
-        <div class="tablecell text w225">
-          apteka
-        </div>
-        <div class="tablecell text w180">
-          witaminy
-        </div>
-        <div class="tablecell tablecellimg w150">
-          <a class="text" [routerLink]="['/']"><img src="../../assets/delete.png" /></a>
-          <a class="text" [routerLink]="['/']"><img src="../../assets/edit.png" /></a>
-        </div>
-      </div>
-    </div> -->
 
     <div class="tablerow">
       <div class="seemore">
