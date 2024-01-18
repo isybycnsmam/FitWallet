@@ -19,7 +19,10 @@
 
     <div class="user-actions">
       <span class="textbold"
-        >zalogowano jako <a class="accent"> {{ username }}</a></span
+        >zalogowano jako
+        <a class="accent" [routerLink]="['/adminpage']">
+          {{ username }}</a
+        ></span
       >
       <a class="logout textbold" (click)="logout()">wyloguj się</a>
     </div>
@@ -28,6 +31,7 @@
   <ng-template #notlogged>
     <div class="navbar-links">
       <a class="text" [routerLink]="['/how-to']">how-to</a>
+      <!-- TODO: what is that? -->
       <a class="text" routerLink="/aplikacja">aplikacja</a>
       <a class="text" [routerLink]="['/contact']">kontakt</a>
     </div>

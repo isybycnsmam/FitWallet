@@ -4,9 +4,10 @@
   </div>
 
   <div class="header">
-    <button class="navibartext" [routerLink]="['/']">dodaj transakcję</button>
+    <button class="navibartext" [routerLink]="['/transactions/add-edit']">
+      dodaj transakcję
+    </button>
   </div>
-
 </div>
 
 <div class="content">
@@ -16,159 +17,39 @@
 
   <div class="table">
     <div class="tableheadrow">
-      <div class="textbold accent w250">
-        portfel
-      </div>
-      <div class="textbold accent w150">
-        wartość
-      </div>
-      <div class="textbold accent w300">
-        opis
-      </div>
-      <div class="textbold accent w225">
-        kto?
-      </div>
-      <div class="textbold accent w180">
-        data
-      </div>
-      <div class="textbold accent w150">
-        zarządzaj
-      </div>
+      <div class="textbold accent w250">portfel</div>
+      <div class="textbold accent w150">wartość</div>
+      <div class="textbold accent w300">opis</div>
+      <div class="textbold accent w225">kto?</div>
+      <div class="textbold accent w180">data</div>
+      <div class="textbold accent w150">zarządzaj</div>
     </div>
 
-    <div class="tablerow tablerowcolorv1">
+    <div
+      class="tablerow tablerowcolorv1"
+      *ngFor="let transaction of transactions"
+    >
       <div class="tablecell text w250">
-        portfel
+        {{ transaction.walletName }}
       </div>
       <div class="tablecell text w150">
-        wartość
+        {{ sumTransaction(transaction) }}
       </div>
       <div class="tablecell text w300">
-        opis
+        {{ transaction.description ? transaction.description : "-" }}
       </div>
-      <div class="tablecell text w225">
-        kto?
-      </div>
-      <div class="tablecell text w180">
-        data
-      </div>
+      <div class="tablecell text w225">{{ transaction.companyName }}</div>
+      <div class="tablecell text w180">{{ transaction.operationDate | date:'dd-MM-yyyy' }}</div>
       <div class="tablecell tablecellimg w150">
-        <a class="text" [routerLink]="['/']"><img src="../../assets/delete.png" /></a>
-        <a class="text" [routerLink]="['/']"><img src="../../assets/edit.png" /></a>
-        <a class="text" [routerLink]="['/']"><img src="../../assets/doubledown.png" /></a>
-      </div>
-    </div>
-
-    <div class="tablerow tablerowcolorv2">
-      <div class="tablecell text w250">
-        portfel
-      </div>
-      <div class="tablecell text w150">
-        wartość
-      </div>
-      <div class="tablecell text w300">
-        opis
-      </div>
-      <div class="tablecell text w225">
-        kto?
-      </div>
-      <div class="tablecell text w180">
-        data
-      </div>
-      <div class="tablecell tablecellimg w150">
-        <a class="text" [routerLink]="['/']"><img src="../../assets/delete.png" /></a>
-        <a class="text" [routerLink]="['/']"><img src="../../assets/edit.png" /></a>
-        <a class="text" [routerLink]="['/']"><img src="../../assets/doubledown.png" /></a>
-      </div>
-    </div>
-
-    <div class="tablerow tablerowcolorv1">
-      <div class="tablecell text w250">
-        portfel
-      </div>
-      <div class="tablecell text w150">
-        wartość
-      </div>
-      <div class="tablecell text w300">
-        opis
-      </div>
-      <div class="tablecell text w225">
-        kto?
-      </div>
-      <div class="tablecell text w180">
-        data
-      </div>
-      <div class="tablecell tablecellimg w150">
-        <a class="text" [routerLink]="['/']"><img src="../../assets/delete.png" /></a>
-        <a class="text" [routerLink]="['/']"><img src="../../assets/edit.png" /></a>
-        <a class="text" [routerLink]="['/']"><img src="../../assets/doubledown.png" /></a>
-      </div>
-    </div>
-
-    <div class="elements">
-      <div class="elementsheadrow">
-        <div class="textbold w250">
-          nazwa
-        </div>
-        <div class="textbold w150">
-          wartość
-        </div>
-        <div class="textbold w300">
-          ile sztuk?
-        </div>
-        <div class="textbold w225">
-          kategoria
-        </div>
-        <div class="textbold w180">
-          opis
-        </div>
-        <div class="textbold w150">
-          zarządzaj
-        </div>
-      </div>
-
-      <div class="tablerow">
-        <div class="tablecell text w250">
-          lek XYZ
-        </div>
-        <div class="tablecell text w150">
-          -100 zł
-        </div>
-        <div class="tablecell text w300">
-          1
-        </div>
-        <div class="tablecell text w225">
-          apteka
-        </div>
-        <div class="tablecell text w180">
-          lek dla Reksia
-        </div>
-        <div class="tablecell tablecellimg w150">
-          <a class="text" [routerLink]="['/']"><img src="../../assets/delete.png" /></a>
-          <a class="text" [routerLink]="['/']"><img src="../../assets/edit.png" /></a>
-        </div>
-      </div>
-
-      <div class="tablerow">
-        <div class="tablecell text w250">
-          lek ABC
-        </div>
-        <div class="tablecell text w150">
-          -100 zł
-        </div>
-        <div class="tablecell text w300">
-          1
-        </div>
-        <div class="tablecell text w225">
-          apteka
-        </div>
-        <div class="tablecell text w180">
-          witaminy
-        </div>
-        <div class="tablecell tablecellimg w150">
-          <a class="text" [routerLink]="['/']"><img src="../../assets/delete.png" /></a>
-          <a class="text" [routerLink]="['/']"><img src="../../assets/edit.png" /></a>
-        </div>
+        <a class="text" (click)="deleteTransaction(transaction.id)"
+          ><img src="../../assets/delete.png"
+        /></a>
+        <a class="text" [routerLink]="['/transactions/add-edit', transaction.id]"
+          ><img src="../../assets/edit.png"
+        /></a>
+        <a class="text" (click)="expandTransaction(transaction.id)"
+          ><img src="../../assets/doubledown.png"
+        /></a>
       </div>
     </div>
 
@@ -179,5 +60,5 @@
         </div>
       </div>
     </div>
-
   </div>
+</div>
