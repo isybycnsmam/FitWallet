@@ -1,4 +1,4 @@
-import { CategoryStatisticsModel } from "./category-statistics";
+import { CategoryStatisticsModel } from "../categories/category-statistics";
 
 export class WalletStatisticsModel {
   id: string;

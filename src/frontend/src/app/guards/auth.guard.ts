@@ -3,13 +3,11 @@ import {
   ActivatedRouteSnapshot,
   CanActivateFn,
   Router,
-  RouterStateSnapshot,
 } from '@angular/router';
 import { AuthorizationService } from '../services/authorization.service';
 
 export const onlyNotLoggedUsersGuard: CanActivateFn = (
-  next: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
+  _next: ActivatedRouteSnapshot
 ) => {
   if (inject(AuthorizationService).isLoggedIn() === false) {
     return true;
@@ -20,8 +18,7 @@ export const onlyNotLoggedUsersGuard: CanActivateFn = (
 };
 
 export const onlyLoggedUsersGuard: CanActivateFn = (
-  next: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
+  _next: ActivatedRouteSnapshot
 ) => {
   if (inject(AuthorizationService).isLoggedIn() === true) {
     return true;

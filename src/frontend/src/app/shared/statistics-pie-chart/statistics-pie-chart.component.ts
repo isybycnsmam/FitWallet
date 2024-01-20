@@ -4,7 +4,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { WalletStatisticsModel } from '../../models/wallets/wallet-statistics';
 import { NgFor } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CategoryStatisticsModel } from '../../models/wallets/category-statistics';
+import { CategoryStatisticsModel } from '../../models/categories/category-statistics';
 
 @Component({
   selector: 'app-statistics-pie-chart',

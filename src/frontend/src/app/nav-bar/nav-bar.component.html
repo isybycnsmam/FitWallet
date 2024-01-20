@@ -1,8 +1,8 @@
-<nav class="navbar">
+<nav>
   <img src="assets/logo.svg" alt="logo" class="logo" />
 
   <ng-template [ngIf]="isUserLoggedIn" [ngIfElse]="notlogged">
-    <div class="navbar-links">
+    <div class="links">
       <a class="text" [routerLink]="['/wallets']"
         ><img src="../../assets/wallet.png"
       /></a>
@@ -29,7 +29,7 @@
   </ng-template>
 
   <ng-template #notlogged>
-    <div class="navbar-links">
+    <div class="links">
       <a class="text" [routerLink]="['/how-to']">how-to</a>
       <!-- TODO: what is that? -->
       <a class="text" routerLink="/aplikacja">aplikacja</a>

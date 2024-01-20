@@ -1,38 +1,26 @@
-.footer {
+footer {
   margin-top: auto;
   width: calc(100% - 90px);
   height: 100px;
-  padding-left: 45px;
-  padding-right: 45px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 5px 45px 5px 45px;
   justify-content: space-between;
   align-items: center;
   display: inline-flex;
 }
 
-.leftdiv {
+.links {
   justify-content: flex-start;
 }
 
-.rightdiv {
+.socials {
   justify-content: flex-end;
 }
 
-.rightdiv,
-.leftdiv {
+.links,
+.socials {
   align-items: center;
   gap: 50px;
   display: flex;
-}
-
-.info {
-  padding-left: 30px;
-  padding-right: 30px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  text-align: center;
 }
 
 img {
