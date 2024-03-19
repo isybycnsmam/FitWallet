@@ -10,29 +10,22 @@ using AutoMapper;
 namespace FitWallet.Api.Controllers;
 
 [Authorize]
-public class WalletsController : ApplicationControllerBase
+public class WalletsController(
+		ILogger<WalletsController> logger,
+		IMapper mapper,
+		ApplicationDatabaseContext dbContext) : ApplicationControllerBase(logger, mapper, dbContext)
 {
-    private readonly ApplicationDatabaseContext _context;
-
-    public WalletsController(
-        ILogger<WalletsController> logger,
-        IMapper mapper,
-        ApplicationDatabaseContext context) : base(logger, mapper)
-    {
-        _context = context;
-    }
-
-    [HttpGet]
+	[HttpGet]
     public async Task<Ok<IEnumerable<WalletDto>>> GetWallets()
     {
         var userId = GetUserId();
 
-        var wallets = await _context.Wallets
+        var wallets = await _dbContext.Wallets
             .AsNoTracking()
             .Where(e => e.UserId == userId)
             .ToListAsync();
 
-        var walletsDtos = Mapper.Map<List<Wallet>, IEnumerable<WalletDto>>(wallets);
+        var walletsDtos = _mapper.Map<List<Wallet>, IEnumerable<WalletDto>>(wallets);
 
         return TypedResults.Ok(walletsDtos);
     }
@@ -42,7 +35,7 @@ public class WalletsController : ApplicationControllerBase
     {
         var userId = GetUserId();
 
-        var wallet = await _context.Wallets
+        var wallet = await _dbContext.Wallets
             .AsNoTracking()
             .FirstOrDefaultAsync(e => 
                 e.UserId == userId && 
@@ -53,7 +46,7 @@ public class WalletsController : ApplicationControllerBase
             return TypedResults.NotFound();
         }
 
-        var walletDto = Mapper.Map<Wallet, WalletDto>(wallet);
+        var walletDto = _mapper.Map<Wallet, WalletDto>(wallet);
 
         return TypedResults.Ok(walletDto);
     }
@@ -63,7 +56,7 @@ public class WalletsController : ApplicationControllerBase
     {
         var userId = GetUserId();
 
-        var wallet = await _context.Wallets
+        var wallet = await _dbContext.Wallets
             .FirstOrDefaultAsync(e => 
                 e.Id == id && 
                 e.UserId == userId);
@@ -73,19 +66,19 @@ public class WalletsController : ApplicationControllerBase
             return TypedResults.NotFound();
         }
 
-        if (await _context.Wallets.AnyAsync(e => e.Name == request.Name && e.UserId == userId))
+        if (await _dbContext.Wallets.AnyAsync(e => e.Name == request.Name && e.UserId == userId))
         {
             return TypedResults.Conflict("There is already a wallet with this name");
         }
 
-        Mapper.Map(request, wallet);
+		_mapper.Map(request, wallet);
 
         if (request.Disabled is not null)
         {
             wallet.Disabled = request.Disabled.Value;
         }
 
-        await _context.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
 
         return TypedResults.NoContent();
     }
@@ -95,7 +88,7 @@ public class WalletsController : ApplicationControllerBase
     {
         var userId = GetUserId();
 
-        if (await _context.Wallets.AnyAsync(e => e.Name == request.Name && e.UserId == userId))
+        if (await _dbContext.Wallets.AnyAsync(e => e.Name == request.Name && e.UserId == userId))
         {
             return TypedResults.Conflict("There is already a wallet with this name");
         }
@@ -106,10 +99,10 @@ public class WalletsController : ApplicationControllerBase
             UserId = userId
         };
 
-        Mapper.Map(request, wallet);
+		_mapper.Map(request, wallet);
 
-        _context.Wallets.Add(wallet);
-        await _context.SaveChangesAsync();
+		_dbContext.Wallets.Add(wallet);
+        await _dbContext.SaveChangesAsync();
 
         return TypedResults.Ok(wallet);
     }
@@ -119,7 +112,7 @@ public class WalletsController : ApplicationControllerBase
     {
         var userId = GetUserId();
 
-        var wallet = await _context.Wallets
+        var wallet = await _dbContext.Wallets
             .FirstOrDefaultAsync(e => 
                 e.Id == id && 
                 e.UserId == userId);
@@ -129,8 +122,8 @@ public class WalletsController : ApplicationControllerBase
             return TypedResults.NotFound();
         }
 
-        _context.Wallets.Remove(wallet);
-        await _context.SaveChangesAsync();
+		_dbContext.Wallets.Remove(wallet);
+        await _dbContext.SaveChangesAsync();
 
         return TypedResults.NoContent();
     }

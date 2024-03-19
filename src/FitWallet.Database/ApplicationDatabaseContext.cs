@@ -6,11 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FitWallet.Database;
 
-public class ApplicationDatabaseContext : IdentityDbContext<User>
+public class ApplicationDatabaseContext(DbContextOptions options) : IdentityDbContext<User>(options)
 {
-    public ApplicationDatabaseContext(DbContextOptions options) : base(options) { }
-
-    public DbSet<Wallet> Wallets { get; set; }
+	public DbSet<Wallet> Wallets { get; set; }
     public DbSet<Company> Companies { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Transaction> Transactions { get; set; }

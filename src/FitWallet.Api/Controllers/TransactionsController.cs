@@ -11,83 +11,74 @@ using Microsoft.EntityFrameworkCore;
 namespace FitWallet.Api.Controllers;
 
 [Authorize]
-public class TransactionsController : ApplicationControllerBase
+public class TransactionsController(
+	ILogger<TransactionsController> logger,
+	IMapper mapper,
+	ApplicationDatabaseContext dbContext) : ApplicationControllerBase(logger, mapper, dbContext)
 {
-    private const int PAGE_SIZE = 10;
-    private readonly ApplicationDatabaseContext _dbContext;
+	private const int PAGE_SIZE = 10;
 
-    public TransactionsController(
-        ILogger<TransactionsController> logger,
-        IMapper mapper,
-        ApplicationDatabaseContext dbContext) : base(logger, mapper)
-    {
-        _dbContext = dbContext;
-    }
+	[HttpGet]
+	public async Task<Results<BadRequest, Ok<PagedDto<TransactionDto>>>> GetTransactions([FromQuery] int page = 0)
+	{
+		if (page < 0)
+			return TypedResults.BadRequest();
 
+		var userId = GetUserId();
+		var skip = page * PAGE_SIZE;
 
-    [HttpGet]
-    public async Task<Results<BadRequest, Ok<PagedDto<TransactionDto>>>> GetTransactions([FromQuery] int page = 0)
-    {
-        if (page < 0)
-        {
-            return TypedResults.BadRequest();
-        }
+		var transactions = await _dbContext.Transactions
+			.AsNoTracking()
+			.Where(e => e.Wallet.UserId == userId)
+			.Include(e => e.Wallet)
+			.Include(e => e.Company)
+			.Include(e => e.Elements)
+			.ThenInclude(e => e.Category)
+			.Skip(skip)
+			.Take(PAGE_SIZE + 1)
+			.ToListAsync();
 
-        var userId = GetUserId();
-        var skip = page * PAGE_SIZE;
+		var transactionDtos = transactions
+			.Take(PAGE_SIZE)
+			.Select(MapTransactionDto)
+			.ToList();
 
-        var transactions = await _dbContext.Transactions
-            .AsNoTracking()
-            .Where(e => e.Wallet.UserId == userId)
-            .Include(e => e.Wallet)
-            .Include(e => e.Company)
-            .Include(e => e.Elements)
-            .ThenInclude(e => e.Category)
-            .Skip(skip)
-            .Take(PAGE_SIZE + 1)
-            .ToListAsync();
+		return TypedResults.Ok(new PagedDto<TransactionDto>()
+		{
+			Data = transactionDtos,
+			PageSize = PAGE_SIZE,
+			PageCount = transactionDtos.Count,
+			PageIndex = page,
+			IsNext = transactions.Count > transactionDtos.Count
+		});
+	}
 
-        var transactionDtos = transactions
-            .Take(PAGE_SIZE)
-            .Select(MapTransactionDto)
-            .ToList();
+	private static TransactionDto MapTransactionDto(Transaction transaction)
+	{
+		return new TransactionDto
+		{
+			Id = transaction.Id,
+			Description = transaction.Description,
+			OperationDate = transaction.OperationDate,
 
-        return TypedResults.Ok(new PagedDto<TransactionDto>()
-        {
-            Data = transactionDtos,
-            PageSize = PAGE_SIZE,
-            PageCount = transactionDtos.Count,
-            PageIndex = page,
-            IsNext = transactions.Count > transactionDtos.Count
-        });
-    }
+			WalletId = transaction.WalletId,
+			WalletName = transaction.Wallet.Name,
 
-    private static TransactionDto MapTransactionDto(Transaction transaction)
-    {
-        return new TransactionDto
-        {
-            Id = transaction.Id,
-            Description = transaction.Description,
-            OperationDate = transaction.OperationDate,
+			CompanyName = transaction.Company.Name,
+			Elements = transaction.Elements.Select(MapTransactionElementDtos).ToList()
+		};
+	}
 
-            WalletId = transaction.WalletId,
-            WalletName = transaction.Wallet.Name,
-
-            CompanyName = transaction.Company.Name,
-            Elements = transaction.Elements.Select(MapTransactionElementDtos).ToList()
-        };
-    }
-
-    private static TransactionElementDto MapTransactionElementDtos(TransactionElement element)
-    {
-        return new TransactionElementDto
-        {
-            Id = element.Id,
-            Name = element.Name,
-            Description = element.Description,
-            Value = element.Value,
-            Quantity = element.Quantity,
-            CategoryName = element.Category.Name,
-        };
-    }
+	private static TransactionElementDto MapTransactionElementDtos(TransactionElement element)
+	{
+		return new TransactionElementDto
+		{
+			Id = element.Id,
+			Name = element.Name,
+			Description = element.Description,
+			Value = element.Value,
+			Quantity = element.Quantity,
+			CategoryName = element.Category.Name,
+		};
+	}
 }

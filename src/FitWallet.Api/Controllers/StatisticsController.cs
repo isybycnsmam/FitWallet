@@ -10,24 +10,18 @@ using Microsoft.EntityFrameworkCore;
 namespace FitWallet.Api.Controllers
 {
     [Authorize]
-    public class StatisticsController : ApplicationControllerBase
+    public class StatisticsController(
+		ILogger<StatisticsController> logger,
+		IMapper mapper,
+		ApplicationDatabaseContext dbContext) : ApplicationControllerBase(logger, mapper, dbContext)
     {
-        private readonly ApplicationDatabaseContext _context;
 
-        public StatisticsController(
-            ILogger<StatisticsController> logger,
-            IMapper mapper,
-            ApplicationDatabaseContext context) : base(logger, mapper)
-        {
-            _context = context;
-        }
-
-        [HttpGet("wallets")]
+		[HttpGet("wallets")]
         public async Task<Ok<List<WalletStatisticsDto>>> GetWalletsStatistics()
         {
             var userId = GetUserId();
 
-            var userWalletsCategoriesSpendings = await _context.WalletsSpendingsPerCategory
+            var userWalletsCategoriesSpendings = await _dbContext.WalletsSpendingsPerCategory
                 .Where(e => e.UserId == userId)
                 .ToListAsync();
 

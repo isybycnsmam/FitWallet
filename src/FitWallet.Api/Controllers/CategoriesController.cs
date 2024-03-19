@@ -10,121 +10,120 @@ using Microsoft.EntityFrameworkCore;
 namespace FitWallet.Api.Controllers;
 
 [Authorize]
-public class CategoriesController : ApplicationControllerBase
+public class CategoriesController(
+		ILogger<CategoriesController> logger,
+		IMapper mapper,
+		ApplicationDatabaseContext dbContext) : ApplicationControllerBase(logger, mapper, dbContext)
 {
-    private readonly ApplicationDatabaseContext _dbContext;
+	/// <summary>
+	/// Gets all categories for the current user.
+	/// </summary>
+	/// <returns>A list of category DTOs.</returns>
+	[HttpGet]
+	[ProducesResponseType(typeof(IEnumerable<CategoryDto>), 200)]
+	public async Task<Ok<IEnumerable<CategoryDto>>> GetAllCategories()
+	{
+		var userId = GetUserId();
 
-    public CategoriesController(
-        ILogger<CategoriesController> logger, 
-        IMapper mapper,
-        ApplicationDatabaseContext dbContext) : base(logger, mapper)
-    {
-        _dbContext = dbContext;
-    }
+		var categories = await _dbContext.Categories
+			.AsNoTracking()
+			.Where(e => e.UserId == userId)
+			.OrderBy(e => e.Name)
+			.ToListAsync();
 
-    [HttpGet]
-    public async Task<Ok<IEnumerable<CategoryDto>>> GetCategories()
-    {
-        var userId = GetUserId();
+		var categoriesDtos = _mapper.Map<List<Category>, IEnumerable<CategoryDto>>(categories);
 
-        var categories = await _dbContext.Categories
-            .AsNoTracking()
-            .Where(e => e.UserId == userId)
-            .ToListAsync();
+		return TypedResults.Ok(categoriesDtos);
+	}
 
-        var categoriesDtos = Mapper.Map<List<Category>, IEnumerable<CategoryDto>>(categories);
+	[HttpGet("{id}")]
+	public async Task<Results<NotFound, Ok<CategoryDto>>> GetCategory(string id)
+	{
+		var userId = GetUserId();
 
-        return TypedResults.Ok(categoriesDtos);
-    }
+		var category = await _dbContext.Categories
+			.AsNoTracking()
+			.Where(e => e.UserId == userId && e.Id == id)
+			.FirstOrDefaultAsync();
 
-    [HttpGet("{id}")]
-    public async Task<Results<NotFound, Ok<CategoryDto>>> GetCategory(string id)
-    {
-        var userId = GetUserId();
+		if (category is null)
+			return TypedResults.NotFound();
 
-        var category = await _dbContext.Categories
-            .AsNoTracking()
-            .Where(e => e.UserId == userId && e.Id == id)
-            .FirstOrDefaultAsync();
+		var categoryDto = _mapper.Map<Category, CategoryDto>(category);
 
-        if (category is null)
-        {
-            return TypedResults.NotFound();
-        }
+		return TypedResults.Ok(categoryDto);
+	}
 
-        var categoryDto = Mapper.Map<Category, CategoryDto>(category);
+	[HttpPost]
+	public async Task<Results<Conflict<string>, Ok<string>>> AddCategory([FromBody] CategoryDto request)
+	{
+		var userId = GetUserId();
 
-        return TypedResults.Ok(categoryDto);
-    }
+		if (await IsCategoryNameAlreadyTaken(request.Name, userId))
+			return TypedResults.Conflict("There is already category with this name");
 
-    [HttpPost]
-    public async Task<Results<Conflict<string>,Ok<string>>> AddCategory([FromBody] CategoryDto request)
-    {
-        var userId = GetUserId();
+		var category = new Category { UserId = userId };
 
-        if (await _dbContext.Categories.AnyAsync(e => e.Name == request.Name && e.UserId == userId))
-        {
-            return TypedResults.Conflict("There is already category with this name");
-        }
+		_mapper.Map(request, category);
 
-        var category = new Category
-        {
-            UserId = userId
-        };
+		_dbContext.Categories.Add(category);
+		await _dbContext.SaveChangesAsync();
 
-        Mapper.Map(request, category);
+		return TypedResults.Ok(category.Id);
+	}
 
-        _dbContext.Categories.Add(category);
-        await _dbContext.SaveChangesAsync();
+	[HttpPut("{id}")]
+	public async Task<Results<NotFound, NoContent, Conflict<string>>> UpdateCategory(string id, [FromBody] CategoryDto request)
+	{
+		var userId = GetUserId();
 
-        return TypedResults.Ok(category.Id);
-    }
-    [HttpPut("{id}")]
-    public async Task<Results<NotFound, NoContent, Conflict<string>>> UpdateCategory(string id, [FromBody] CategoryDto request)
-    {
-        var userId = GetUserId();
+		var category = await _dbContext.Categories
+			.FirstOrDefaultAsync(e =>
+				e.Id == id &&
+				e.UserId == userId);
 
-        var category = await _dbContext.Categories
-            .FirstOrDefaultAsync(e => 
-                e.Id == id && 
-                e.UserId == userId);
+		if (category is null)
+			return TypedResults.NotFound();
 
-        if (category is null)
-        {
-            return TypedResults.NotFound();
-        }
+		if (category.Name != request.Name &&
+			await IsCategoryNameAlreadyTaken(request.Name, userId))
+		{
+			return TypedResults.Conflict("There is already category with this name");
+		}
 
-        if (await _dbContext.Wallets.AnyAsync(e => e.Name == request.Name && e.UserId == userId))
-        {
-            return TypedResults.Conflict("There is already category with this name");
-        }
+		_mapper.Map(request, category);
 
-        Mapper.Map(request, category);
+		await _dbContext.SaveChangesAsync();
 
-        await _dbContext.SaveChangesAsync();
+		return TypedResults.NoContent();
+	}
 
-        return TypedResults.NoContent();
-    }
-    
-    [HttpDelete("{id}")]
-    public async Task<Results<NotFound, NoContent>> DeleteCategory(string id)
-    {
-        var userId = GetUserId();
+	[HttpDelete("{id}")]
+	public async Task<Results<NotFound, NoContent>> DeleteCategory(string id)
+	{
+		var userId = GetUserId();
 
-        var category = await _dbContext.Categories
-            .FirstOrDefaultAsync(e => 
-                e.Id == id && 
-                e.UserId == userId);
+		var category = await _dbContext.Categories
+			.FirstOrDefaultAsync(e =>
+				e.Id == id &&
+				e.UserId == userId);
 
-        if (category is null)
-        {
-            return TypedResults.NotFound();
-        }
+		if (category is null)
+			return TypedResults.NotFound();
 
-        _dbContext.Categories.Remove(category);
-        await _dbContext.SaveChangesAsync();
+		_dbContext.Categories.Remove(category);
+		await _dbContext.SaveChangesAsync();
 
-        return TypedResults.NoContent();
-    }
+		return TypedResults.NoContent();
+	}
 
+	private async Task<bool> IsCategoryNameAlreadyTaken(string name, string userId)
+	{
+		var exists = await _dbContext.Categories
+			.AsNoTracking()
+			.Where(e => e.UserId == userId && e.Name == name)
+			.AnyAsync();
+
+		return exists;
+	}
 }

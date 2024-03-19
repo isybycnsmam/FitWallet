@@ -5,6 +5,7 @@ using AutoMapper;
 using FitWallet.Api.Configuration;
 using FitWallet.Core.Dtos.Users;
 using FitWallet.Core.Models;
+using FitWallet.Database;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
@@ -13,26 +14,19 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace FitWallet.Api.Controllers;
 
-public class IdentityController : ApplicationControllerBase
+public class IdentityController(
+	ILogger<IdentityController> logger,
+	IMapper mapper,
+    ApplicationDatabaseContext dbContext,
+	JwtSettings jwtSettings,
+	UserManager<User> userManager,
+	RoleManager<IdentityRole> roleManager) : ApplicationControllerBase(logger, mapper, dbContext)
 {
-    private readonly JwtSettings _jwtSettings;
-    private readonly UserManager<User> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly JwtSettings _jwtSettings = jwtSettings;
+    private readonly UserManager<User> _userManager = userManager;
+    private readonly RoleManager<IdentityRole> _roleManager = roleManager;
 
-    public IdentityController(
-        //ILogger logger,
-        IMapper mapper,
-        JwtSettings jwtSettings,
-        UserManager<User> userManager,
-        RoleManager<IdentityRole> roleManager) : base(null, mapper)
-    {
-        _jwtSettings = jwtSettings;
-        _userManager = userManager;
-        _roleManager = roleManager;
-    }
-
-
-    [HttpPost("login")]
+	[HttpPost("login")]
     public async Task<Results<Ok<AccessTokenResponse>, UnauthorizedHttpResult>> Login([FromBody] LoginRequestDto request)
     {
         var user = await _userManager.FindByNameAsync(request.Username);
@@ -49,14 +43,14 @@ public class IdentityController : ApplicationControllerBase
         {
             AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
             ExpiresIn = _jwtSettings.ExpirationSeconds,
-            RefreshToken = string.Empty// TODO: Add token
+            RefreshToken = string.Empty// TODO: Add refresh token
         });
     }
 
     [HttpPost("register")]
     public async Task<Results<Ok<AccessTokenResponse>, ValidationProblem>> Register([FromBody] RegisterRequestDto request)
     {
-        var user = Mapper.Map<RegisterRequestDto, User>(request);
+        var user = _mapper.Map<RegisterRequestDto, User>(request);
 
         var createResult = await _userManager.CreateAsync(user, request.Password);
         if (!createResult.Succeeded)
