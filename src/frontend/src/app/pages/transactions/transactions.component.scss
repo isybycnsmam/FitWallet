@@ -193,8 +193,8 @@ a {
   }
 
   img:hover {
-    filter: brightness(0) saturate(100%) invert(70%) sepia(56%) saturate(838%) hue-rotate(330deg) brightness(99%)
-      contrast(88%);
+    filter: brightness(0) saturate(100%) invert(70%) sepia(56%) saturate(838%)
+      hue-rotate(330deg) brightness(99%) contrast(88%);
   }
 
   &:hover {
@@ -206,4 +206,22 @@ a {
     color: #fdf0e2;
     transition: ease-in-out 0.2s;
   }
+}
+
+.shrink {
+  rotate: 180deg;
+  transition: all 0.1s linear;
+}
+
+.expand {
+  transition: all 0.1s linear;
+}
+
+.visible{
+  transition: all 1s linear;
+}
+
+.hidden{
+  transition: all 1s linear;
+  display: none;
 }

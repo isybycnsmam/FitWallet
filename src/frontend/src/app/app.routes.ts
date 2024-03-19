@@ -15,16 +15,30 @@ import { CategoriesComponent } from './pages/categories/categories.component';
 import { AdminPageComponent } from './pages/adminpage/adminpage.component';
 import { AddWalletComponent } from './pages/wallets/add-wallet/add-wallet.component';
 import { AddEditCategoryComponent } from './pages/categories/add-edit-category/add-edit-category.component';
+import { AddEditTransactionComponent } from './pages/transactions/add-edit-transaction/add-edit-transaction.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'how-to', pathMatch: 'full' },
   { path: 'how-to', component: HowToComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'errorpage', component: ErrorPageComponent },
+  { path: 'adminpage', component: AdminPageComponent },
   { path: 'stats', component: StatsComponent },
+
+  // Transactions
   { path: 'transactions', component: TransactionsComponent },
-  { path: 'categories', component: CategoriesComponent },
-  { path: 'adminpage', component: AdminPageComponent }, //dodaj tutaj uprawnienia dla admina
+  {
+    path: 'transactions/add-edit',
+    component: AddEditTransactionComponent,
+    canActivate: [onlyLoggedUsersGuard],
+  },
+  {
+    path: 'transactions/add-edit/:id',
+    component: AddEditTransactionComponent,
+    canActivate: [onlyLoggedUsersGuard],
+  },
+
+  // login & register
   {
     path: 'register',
     component: RegisterComponent,
@@ -35,6 +49,8 @@ export const routes: Routes = [
     component: LoginComponent,
     canActivate: [onlyNotLoggedUsersGuard],
   },
+
+  // wallets
   {
     path: 'wallets',
     component: WalletsComponent,
@@ -45,6 +61,9 @@ export const routes: Routes = [
     component: AddWalletComponent,
     canActivate: [onlyLoggedUsersGuard],
   },
+
+  // categories
+  { path: 'categories', component: CategoriesComponent },
   {
     path: 'categories/add-edit',
     component: AddEditCategoryComponent,
@@ -55,5 +74,6 @@ export const routes: Routes = [
     component: AddEditCategoryComponent,
     canActivate: [onlyLoggedUsersGuard],
   },
+
   { path: '**', redirectTo: 'how-to' },
 ];

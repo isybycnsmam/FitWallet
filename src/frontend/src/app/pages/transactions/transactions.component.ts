@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { TransactionModel } from '../../models/transactions/transaction';
@@ -9,7 +9,7 @@ import { PagedModel } from '../../models/paged';
 @Component({
   selector: 'transactions',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgFor],
+  imports: [CommonModule, RouterModule, NgFor, NgIf],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss',
 })
@@ -68,8 +68,10 @@ export class TransactionsComponent implements OnInit {
     });
   }
 
-  expandTransaction(id: string): void {
-
+  toggleTransaction(id: string): void {
+    let transaction = this.transactions.find((t) => t.id === id);
+    if (!transaction) return;
+    transaction.showElements = !transaction.showElements;
   }
 
   sumTransaction(transaction: TransactionModel): number {

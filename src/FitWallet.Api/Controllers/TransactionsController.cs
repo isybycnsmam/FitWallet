@@ -53,6 +53,28 @@ public class TransactionsController(
 		});
 	}
 
+	[HttpGet("{id}")]
+	public async Task<Results<NotFound, Ok<TransactionDto>>> GetTransaction(string id)
+	{
+		var userId = GetUserId();
+
+		var transaction = await _dbContext.Transactions
+			.AsNoTracking()
+			.Where(e => e.Wallet.UserId == userId && e.Id == id)
+			.Include(e => e.Wallet)
+			.Include(e => e.Company)
+			.Include(e => e.Elements)
+				.ThenInclude(e => e.Category)
+			.FirstOrDefaultAsync();
+
+		if (transaction is null)
+			return TypedResults.NotFound();
+
+		var transactionDto = MapTransactionDto(transaction);
+
+		return TypedResults.Ok(transactionDto);
+	}
+
 	private static TransactionDto MapTransactionDto(Transaction transaction)
 	{
 		return new TransactionDto

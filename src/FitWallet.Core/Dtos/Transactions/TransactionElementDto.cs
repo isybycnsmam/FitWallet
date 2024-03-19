@@ -7,5 +7,7 @@ public class TransactionElementDto
     public string Description { get; set; }
     public double Value { get; set; }
     public int Quantity { get; set; }
+
+    public string CategoryId { get; set; }
     public string CategoryName { get; set; }
 }

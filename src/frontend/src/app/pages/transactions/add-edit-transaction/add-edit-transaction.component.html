@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="header">
+    <div class="headertext title">
+      {{ isEdit ? "edytuj transakcję" : "dodaj nową transakcję" }}
+    </div>
+  </div>
+
+  <form [formGroup]="transactionform" (ngSubmit)="submitAdd()">
+    <label class="textbold" for="wallet">wybierz portfel: </label>
+    <select id="wallet" class="selectwallet text" [formControl]="transactionform.controls.wallet">
+      <option class="walletoption" *ngFor="let wallet of wallets" [ngValue]="wallet.id">
+        {{ wallet.name }}
+      </option>
+    </select>
+
+    <app-input
+      [formControll]="transactionform.controls.description"
+      label="opis"
+      placeholder="zakupy w aptece"
+    ></app-input>
+
+    <app-input
+      [formControll]="transactionform.controls.who"
+      label="kto?"
+      placeholder="dr Max"
+    ></app-input>
+
+    <app-input
+      [formControll]="transactionform.controls.who"
+      label="data"
+      type="date"
+      placeholder="05-01-2023"
+    ></app-input>
+
+    <div class="action-buttons">
+      <button
+        class="textbold"
+        type="submit"
+        [disabled]="!transactionform.valid"
+      >
+        {{ isEdit ? "edytuj" : "dodaj" }} transakcję
+      </button>
+
+      <button class="textbold" [routerLink]="['/transactions']">wróć</button>
+    </div>
+  </form>
+</div>

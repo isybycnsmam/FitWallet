@@ -43,11 +43,11 @@
           <a class="text" (click)="deleteTransaction(transaction.id)"><img src="../../assets/delete.png" /></a>
           <a class="text" [routerLink]="['/transactions/add-edit', transaction.id]"><img
               src="../../assets/edit.png" /></a>
-          <a class="text" (click)="expandTransaction(transaction.id)"><img src="../../assets/doubledown.png" /></a>
+          <a class="text" (click)="toggleTransaction(transaction.id)"><img src="../../assets/doubledown.png" [ngClass]="transaction.showElements ? 'shrink' : 'expand'" /></a>
         </div>
       </div>
 
-      <div class="contentblock">
+      <div class="contentblock" [ngClass]="transaction.showElements ? 'visible' : 'hidden'">
         <div class="elements">
           <div class="elementsheadrow">
             <div class="textbold w250">
@@ -70,7 +70,7 @@
             </div>
           </div>
 
-          <div class="elementstablerow"  *ngFor="let element of transaction.elements">
+          <div class="elementstablerow" *ngFor="let element of transaction.elements">
             <div class="tablecell text w250">
               {{ element.name }}
             </div>
@@ -99,7 +99,7 @@
     <div class="tablerow">
       <div class="seemore">
         <div class="seemoretext">
-          scrolluj w dół, aby pokazać więcej transakcji
+          to już wszystkie twoje transakcje
         </div>
       </div>
     </div>
